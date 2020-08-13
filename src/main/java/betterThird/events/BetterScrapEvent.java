@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.cards.purple.*;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.EventStrings;
@@ -91,7 +92,8 @@ public class BetterScrapEvent extends AbstractImageEvent {
                                 this.imageEventText.updateDialogOption(0, OPTIONS[7], true);
                             }
                             AbstractRelic r = AbstractDungeon.returnRandomScreenlessRelic(AbstractDungeon.returnRandomRelicTier());
-                            //AbstractEvent.logMetricObtainRelicAndDamage("Scrap Ooze", "Success", r, this.totalDamageDealt);
+                            this.optionsChosen += "Relic ";
+                            //AbstractEvent.logMetricObtainRelicAndDamage(ID, this.optionsChosen, r, this.totalDamageDealt);
                             AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F, r);
                         } else {
                             this.imageEventText.updateBodyText(FAIL_MSG);
@@ -117,7 +119,8 @@ public class BetterScrapEvent extends AbstractImageEvent {
                                 this.cardEarned = true;
                                 this.imageEventText.updateDialogOption(1, OPTIONS[7], true);
                             }
-                            //AbstractEvent.logMetricObtainRelicAndDamage("Scrap Ooze", "Success", r, this.totalDamageDealt);
+                            this.optionsChosen += "Card ";
+                            //AbstractEvent.logMetricObtainCardAndDamage(ID, this.optionsChosen, this.card.makeCopy(), this.totalDamageDealt);
                             if(this.card.color == AbstractCard.CardColor.BLUE && AbstractDungeon.player.masterMaxOrbs == 0){
                                 AbstractDungeon.player.masterMaxOrbs = 1;
                             }
@@ -133,10 +136,13 @@ public class BetterScrapEvent extends AbstractImageEvent {
 
                         return;
                     case 2:
-                        //AbstractEvent.logMetricTakeDamage("Scrap Ooze", "Fled", this.totalDamageDealt);
+                        if(this.optionsChosen.isEmpty()){
+                            this.optionsChosen = "LEAVE";
+                        }
+                        //AbstractEvent.logMetricTakeDamage(ID, this.optionsChosen, this.totalDamageDealt);
                         this.imageEventText.updateBodyText(ESCAPE_MSG);
-                        this.imageEventText.updateDialogOption(0, OPTIONS[3]);
-                        this.imageEventText.removeDialogOption(1);
+                        this.imageEventText.clearAllDialogs();
+                        this.imageEventText.setDialogOption(OPTIONS[3]);
                         this.screen = CurScreen.LEAVE;
                         return;
                     default:
@@ -144,7 +150,7 @@ public class BetterScrapEvent extends AbstractImageEvent {
                         return;
                 }
             case LEAVE:
-                this.openMap();// 97
+                this.openMap();
         }
 
     }
@@ -227,7 +233,6 @@ public class BetterScrapEvent extends AbstractImageEvent {
 
     private enum CurScreen {
         INTRO,
-        RESULT,
         LEAVE;
 
         CurScreen() {
