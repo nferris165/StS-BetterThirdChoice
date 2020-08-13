@@ -36,6 +36,7 @@ public class BetterScrapEvent extends AbstractImageEvent {
     private static final String FAIL_MSG;
     private static final String SUCCESS_MSG;
     private static final String ESCAPE_MSG;
+    private boolean relic, cardEarned;
     private CurScreen screen;
     private String optionsChosen;
 
@@ -43,6 +44,8 @@ public class BetterScrapEvent extends AbstractImageEvent {
         super(NAME, DESCRIPTIONS[0], IMG);
 
         this.optionsChosen = "";
+        this.relic = false;
+        this.cardEarned = false;
         this.screen = CurScreen.INTRO;
         if (AbstractDungeon.ascensionLevel >= 15) {
             this.dmg = 5;
@@ -78,10 +81,17 @@ public class BetterScrapEvent extends AbstractImageEvent {
                         random = AbstractDungeon.miscRng.random(0, 99);
                         if (random >= 99 - this.relicObtainChance) {
                             this.imageEventText.updateBodyText(SUCCESS_MSG);
+                            if(this.cardEarned){
+                                this.imageEventText.clearAllDialogs();
+                                this.imageEventText.setDialogOption(OPTIONS[3]);
+                                this.screen = CurScreen.LEAVE;
+                            }
+                            else{
+                                this.relic = true;
+                                this.imageEventText.updateDialogOption(0, OPTIONS[7], true);
+                            }
                             AbstractRelic r = AbstractDungeon.returnRandomScreenlessRelic(AbstractDungeon.returnRandomRelicTier());
                             //AbstractEvent.logMetricObtainRelicAndDamage("Scrap Ooze", "Success", r, this.totalDamageDealt);
-                            this.imageEventText.updateDialogOption(0, OPTIONS[7], true);
-                            this.screen = CurScreen.LEAVE;
                             AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F, r);
                         } else {
                             this.imageEventText.updateBodyText(FAIL_MSG);
@@ -98,9 +108,16 @@ public class BetterScrapEvent extends AbstractImageEvent {
                         random = AbstractDungeon.miscRng.random(0, 99);
                         if (random >= 99 - this.cardObtainChance) {
                             this.imageEventText.updateBodyText(DESCRIPTIONS[4]);
+                            if(this.relic){
+                                this.imageEventText.clearAllDialogs();
+                                this.imageEventText.setDialogOption(OPTIONS[3]);
+                                this.screen = CurScreen.LEAVE;
+                            }
+                            else{
+                                this.cardEarned = true;
+                                this.imageEventText.updateDialogOption(1, OPTIONS[7], true);
+                            }
                             //AbstractEvent.logMetricObtainRelicAndDamage("Scrap Ooze", "Success", r, this.totalDamageDealt);
-                            this.imageEventText.updateDialogOption(1, OPTIONS[7], true);
-                            this.screen = CurScreen.LEAVE;
                             if(this.card.color == AbstractCard.CardColor.BLUE && AbstractDungeon.player.masterMaxOrbs == 0){
                                 AbstractDungeon.player.masterMaxOrbs = 1;
                             }
