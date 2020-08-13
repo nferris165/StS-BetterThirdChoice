@@ -28,9 +28,9 @@ public class BetterScrapEvent extends AbstractImageEvent {
     private static final String[] OPTIONS = eventStrings.OPTIONS;
     private static final String IMG = "images/events/scrapOoze.jpg";
 
-    private int relicObtainChance = 25, cardObtainChance = 35;
+    private int relicObtainChance = 25, cardObtainChance = 30;
     private int dmg = 3;
-    private int cardDmg = 2;
+    private int cardDmg = 3;
     private int totalDamageDealt = 0;
     private AbstractCard card;
     private static final String FAIL_MSG;
@@ -46,7 +46,7 @@ public class BetterScrapEvent extends AbstractImageEvent {
         this.screen = CurScreen.INTRO;
         if (AbstractDungeon.ascensionLevel >= 15) {
             this.dmg = 5;
-            this.cardDmg = 3;
+            this.cardDmg = 4;
         }
 
         generateCard();
