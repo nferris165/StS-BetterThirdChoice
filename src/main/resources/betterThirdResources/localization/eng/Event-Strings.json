@@ -2,10 +2,108 @@
   "betterThird:BetterNest": {
     "NAME": "Better Nest",
     "DESCRIPTIONS": [
+      "A long line of #b~hooded~ #b~figures~ can be seen entering NL an #punassuming #pcathedral.",
+      "Naturally, you join the line and are quickly surrounded by #rCultists! NL They ignore you as they gleefully @chant@ and ~wave~ their weapons around. NL NL #r@\"MURDER!!@ #r@MURDER@ #r@MURDER!!\"@ NL #b~\"CAW~ #b~CAW~ #b~CAAAAAWWW!\"~ NL #r@\"MURDER!@ #r@MURDER@ #r@MUURDER!!\"@ NL #b~\"CAAW~ #b~CAW~ #b~CAAAAAAWW!!\"~ NL NL You eye a #yDonation #yBox...",
+      "You decide to stay in line (out of fear) to see what will happen. NL NL Eventually, you are face-to-face with the leader. A well-dressed cultist hands you an #yOrnate #yDagger. Like the others before you, you slash your forearm and let the blood drip into a misshapen bowl. NL NL The cultists @chant@ and @holler@ for you! NL NL #b~\"CAAW~ #b~CAW~ #b~CAAAAAAWW!!\"~ NL NL You chant, too. Why not?",
+      "They didn't even notice.",
+      "",
       ""
     ],
     "OPTIONS": [
-      ""
+      "[Stay in Line] #gObtain Ritual Dagger. #rLose #r",
+      " #rHP.",
+      "[Smash and Grab] #gObtain #g",
+      " #gGold.",
+      "[Leave]",
+      "[Continue]"
+    ]
+  },
+  "betterThird:BetterGoop": {
+    "NAME": "Better World of Goop",
+    "DESCRIPTIONS": [
+      "You fall into a puddle. NL @IT'S@ @MADE@ @OF@ #g@SLIME@ #g@GOOP!!@ NL Frantically, you claw yourself out over several minutes as you feel the goop starting to burn. NL You can feel goop in your ears, goop in your nose, goop everywhere. NL NL Climbing out, you notice that some of your #ygold is missing. Looking back to the puddle you see your missing coins combined with #ygold from unfortunate adventurers mixed together in the puddle.",
+      "Feeling the sting of the goop as the prolonged exposure starts to melt away at your skin, you manage to fish out the #ygold.",
+      "You decide that mess is not worth it."
+    ],
+    "OPTIONS": [
+      "[Gather Gold] #gGain #g",
+      " #gGold. #rLose #r",
+      " #rHP.",
+      "[Leave It] #rLose #r",
+      " #rGold.",
+      "[Leave]"
+    ]
+  },
+  "betterThird:BetterPortal": {
+    "NAME": "Better Secret Portal",
+    "DESCRIPTIONS": [
+      "Before you is a sight that seems out of place in the alien landscape around you. Strangely placed into one of the living walls of the Beyond is an enclosed stone entrance filled with a #p~swirling~ #p~magical~ #p~portal.~ NL NL You aren't sure where it leads, but maybe it could speed your journey through the Spire.",
+      "Jumping through the portal, your sense of time and space is completely torn apart. NL NL As you reorient yourself to the new surroundings, you realize that right before you is a fearsome battle.",
+      "Careful and cautious seems the better approach for reaching the top of the Spire. Ignoring the portal you continue on."
+    ],
+    "OPTIONS": [
+      "[Enter the Portal] IMMEDIATELY travel to the boss.",
+      "[Leave]"
+    ]
+  },
+  "betterThird:BetterScrap": {
+    "NAME": "Better Scrap Ooze",
+    "DESCRIPTIONS": [
+      "As you walk into the room you hear a ~gurgling~ and the @grinding@ of metals. Before you is a slime-like creature that ate too much scrap for its own good. From the center of the creature you see glints of strange light, perhaps something magical? It looks like you can get some #ytreasure if you just reach inside its... opening. However, the acid and sharp objects may #rhurt.",
+      "#r@Ouch!@ NL All you find is corroded metal and a bit of #r@burning@ #r@pain.@ NL However, you're still convinced there's a #yrelic...",
+      "#gSuccess! NL After rummaging through the metal and burning acid, you finally grab hold of a #yrelic and yank it out. NL You pull your way out of the ooze #rdamaged but rewarded.",
+      "You decide to leave the area. NL The slime pays no attention, content with its meal."
+    ],
+    "OPTIONS": [
+      "[Reach Inside] #rLose #r",
+      " #rHP. #g",
+      "%: #gFind #ga #gRelic.",
+      "[Leave]",
+      "[Deeper] #rLose #r"
+    ]
+  },
+  "betterThird:BetterSerpent": {
+    "NAME": "Better Ssssserpent",
+    "DESCRIPTIONS": [
+      "You walk into a room to find a large hole in the ground. As you approach the hole, an enormous serpent creature appears from within. NL NL ~\"Ho~ ~hooo!~ ~Hello~ ~hello!~ ~what~ ~have~ ~we~ ~got~ ~here?~ Hello adventurer, I ask a simple question. NL The most fulfilling of lives is that in which you can #y~buy~ #y~anything!~ NL Do you agree?\"",
+      "~\"Yeeeeeeessssssssssessss!~ NL ~Thisss~ ~will~ ~all~ ~be~ ~worthhh~ ~it.~ NL ~..ssSSs.....~ ~ss...~ ~sssss....!\"~",
+      "The serpent stares at you with a look of extreme disappointment.",
+      "The serpent rears its head and blasts a stream of #ygold upwards! NL It is amazing and terrifying simultaneously. NL You gather all the #ygold, thank the snake, and get going."
+    ],
+    "OPTIONS": [
+      "[Agree] #gGain #g",
+      " #gGold. #rBecome #rCursed #r- #rDoubt.",
+      "[Disagree]",
+      "[Continue]",
+      "[Leave]"
+    ]
+  },
+  "betterThird:BetterShining": {
+    "NAME": "Better Shining Light",
+    "DESCRIPTIONS": [
+      "You find a shimmering #ymass #yof #ylight encompassing the center of the room. NL NL Its ~warm~ ~glow~ and ~enchanting~ ~patterns~ invite you in.",
+      "As you walk through the light, you notice that the light is absorbed into you. NL It's #r@scorching@ #r@hot@ ! However, the pain quickly recedes. NL You feel #binvigorated, as though you received a well deserved slap.",
+      "You walk around it, wondering what could have been."
+    ],
+    "OPTIONS": [
+      "[Enter] #gUpgrade #g2 #grandom #gcards. #rLose #r",
+      " #rHP.",
+      "[Leave]",
+      "[Locked] Requires: Upgradeable Cards"
+    ]
+  },
+  "betterThird:BetterWriting": {
+    "NAME": "Better Ancient Writing",
+    "DESCRIPTIONS": [
+      "Scaling the city, you notice a wall covered in the writing of #y~Ancients.~ As you try to wrap your head around what the puzzling symbols and glyphs could mean, the writing begins to #b~glow.~ NL Suddenly, the message becomes clear...",
+      "The answer was elegance. NL Of course.",
+      "The truth is always simple."
+    ],
+    "OPTIONS": [
+      "[Elegance] #gRemove #ga #gcard #gfrom #gyour #gdeck.",
+      "[Simplicity] #gUpgrade #gall #gStrikes #gand #gDefends.",
+      "Select a Card to Remove.",
+      "[Leave]"
     ]
   }
 }
