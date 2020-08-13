@@ -4,11 +4,11 @@ import betterThird.BetterThird;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.cards.blue.*;
-import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.cards.green.Accuracy;
+import com.megacrit.cardcrawl.cards.purple.*;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.EventStrings;
@@ -16,7 +16,6 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class BetterScrapEvent extends AbstractImageEvent {
@@ -169,7 +168,7 @@ public class BetterScrapEvent extends AbstractImageEvent {
 
         for(AbstractCard c: tmpPool){
             if(c.rarity != AbstractCard.CardRarity.COMMON){
-                if(!Arrays.asList(exclude).contains(c.cardID)){
+                if(!exclude.contains(c.cardID)){
                     cardPool.add(c.makeCopy());
                 }
             }
@@ -182,9 +181,9 @@ public class BetterScrapEvent extends AbstractImageEvent {
     private ArrayList<String> addExclusions(){
         ArrayList<String> exclude = new ArrayList<>();
 
-        exclude.add(Barrage.ID);
-        exclude.add(CompileDriver.ID);
-        exclude.add(Recursion.ID);
+        exclude.add(Accuracy.ID);
+        exclude.add(InnerPeace.ID);
+        exclude.add(Indignation.ID);
         exclude.add(Blizzard.ID);
         exclude.add(Capacitor.ID);
         exclude.add(Consume.ID);
@@ -193,7 +192,11 @@ public class BetterScrapEvent extends AbstractImageEvent {
         exclude.add(BiasedCognition.ID);
         exclude.add(Fission.ID);
         exclude.add(MultiCast.ID);
-        exclude.add(BiasedCognition.ID);
+        exclude.add(LikeWater.ID);
+        exclude.add(MentalFortress.ID);
+        exclude.add(Pray.ID);
+        exclude.add(Rushdown.ID);
+        exclude.add(Worship.ID);
 
         return exclude;
 
