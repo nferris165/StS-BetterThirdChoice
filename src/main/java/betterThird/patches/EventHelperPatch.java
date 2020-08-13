@@ -1,5 +1,6 @@
 package betterThird.patches;
 
+import betterThird.events.*;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.events.beyond.SecretPortal;

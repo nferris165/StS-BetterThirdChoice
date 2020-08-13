@@ -1,6 +1,7 @@
 package betterThird.util;
 
 import betterThird.BetterThird;
+import betterThird.events.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.net.HttpRequestBuilder;
@@ -180,11 +181,29 @@ public class customMetrics implements Runnable {
     public void run()
     {
         for(HashMap map : CardCrawlGame.metricData.event_choices){
-            if(map.get("event_name").equals(BetterThirdEvent.ID)){
+            if(map.get("event_name").equals(BetterGoopEvent.ID)){
                 foundEvent = true;
-                addData("event_choice", map);
-                break;
+                addData("goop_choice", map);
+            } else if(map.get("event_name").equals(BetterNestEvent.ID)){
+                foundEvent = true;
+                addData("nest_choice", map);
+            } else if(map.get("event_name").equals(BetterPortalEvent.ID)){
+                foundEvent = true;
+                addData("portal_choice", map);
+            } else if(map.get("event_name").equals(BetterScrapEvent.ID)){
+                foundEvent = true;
+                addData("scrap_choice", map);
+            } else if(map.get("event_name").equals(BetterSerpentEvent.ID)){
+                foundEvent = true;
+                addData("serpent_choice", map);
+            } else if(map.get("event_name").equals(BetterShiningEvent.ID)){
+                foundEvent = true;
+                addData("shining_choice", map);
+            } else if(map.get("event_name").equals(BetterWritingEvent.ID)){
+                foundEvent = true;
+                addData("writing_event", map);
             }
+
         }
 
         if (foundEvent) {
