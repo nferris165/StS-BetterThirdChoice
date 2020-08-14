@@ -1,3 +1,13 @@
 {
-
+  "betterThird:NestCultRelic": {
+    "NAME": "Ritual Mask",
+    "FLAVOR": "Is this what enlightenment feels like?",
+    "DESCRIPTIONS": [
+      "Start each combat with #b",
+      " Ritual. Start each combat with a full hand of Madness.",
+      "@CAW!@ NL @CAAAW@",
+      "~CAW~ ~CAW~ NL @CAAAAAWWW!@",
+      "@MURDER!!@ @MURDER@ NL @MURDER!!@"
+    ]
+  }
 }

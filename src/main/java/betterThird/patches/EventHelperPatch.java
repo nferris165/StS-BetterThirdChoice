@@ -12,6 +12,8 @@ import com.megacrit.cardcrawl.events.exordium.ShiningLight;
 import com.megacrit.cardcrawl.events.exordium.Sssserpent;
 import com.megacrit.cardcrawl.helpers.EventHelper;
 
+import static betterThird.BetterThird.nest;
+
 public class EventHelperPatch {
     @SpirePatch(
             clz = EventHelper.class,
@@ -21,8 +23,7 @@ public class EventHelperPatch {
     public static class EventSwapPatch {
         public static AbstractEvent Postfix(AbstractEvent __result, String key){
 
-            if (__result instanceof Nest) {
-
+            if (__result instanceof Nest && nest) {
                 return new BetterNestEvent();
             } else if(__result instanceof ScrapOoze) {
                 return new BetterScrapEvent();

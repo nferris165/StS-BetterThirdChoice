@@ -6,7 +6,9 @@ import basemod.ModPanel;
 import basemod.ReflectionHacks;
 import basemod.eventUtil.AddEventParams;
 import basemod.eventUtil.EventUtils;
+import basemod.helpers.RelicType;
 import basemod.interfaces.*;
+import betterThird.relics.NestCultRelic;
 import betterThird.util.TextureLoader;
 import betterThird.util.customMetrics;
 import com.badlogic.gdx.Gdx;
@@ -46,6 +48,8 @@ public class BetterThird implements
     public static Properties defaultSettings = new Properties();
     public static final String option_limit_settings = "ascensionLimit";
     public static boolean optionLimit = false;
+    private static final String nest_settings = "nest";
+    public static boolean nest = true;
 
     private static final String MODNAME = "Better Third";
     private static final String AUTHOR = "Nichilas";
@@ -101,10 +105,13 @@ public class BetterThird implements
 
         logger.info("Adding mod settings");
         defaultSettings.setProperty(option_limit_settings, "FALSE");
+        defaultSettings.setProperty(nest_settings, "TRUE");
+
         try {
             SpireConfig config = new SpireConfig("betterThird", "betterThirdConfig", defaultSettings);
             config.load();
             optionLimit = config.getBool(option_limit_settings);
+            nest = config.getBool(nest_settings);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -143,7 +150,7 @@ public class BetterThird implements
 
     @Override
     public void receiveEditRelics() {
-
+        BaseMod.addRelic(new NestCultRelic(), RelicType.SHARED);
     }
 
     @Override
@@ -199,8 +206,26 @@ public class BetterThird implements
                     }
                 });
 
+        ModLabeledToggleButton nestButton = new ModLabeledToggleButton("Enable Better Nest.",
+                350.0f, 700.0f, Settings.CREAM_COLOR, FontHelper.charDescFont,
+                nest,
+                settingsPanel,
+                (label) -> {},
+                (button) -> {
+
+                    nest = button.enabled;
+                    try {
+                        SpireConfig config = new SpireConfig("betterThird", "betterThirdConfig", defaultSettings);
+                        config.setBool(nest_settings, nest);
+                        config.save();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
 
         settingsPanel.addUIElement(ascLimitButton);
+        settingsPanel.addUIElement(nestButton);
         BaseMod.registerModBadge(badgeTexture, MODNAME, AUTHOR, DESCRIPTION, settingsPanel);
 
         //events

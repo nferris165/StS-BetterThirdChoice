@@ -18,6 +18,7 @@ import com.megacrit.cardcrawl.events.exordium.Sssserpent;
 public class RemoveEventPatch {
 
     public static void Prefix(AbstractDungeon dungeon_instance) {
+        /* // USING REPLACE INSTEAD OF REMOVE AND ADD
         AbstractDungeon.eventList.remove(Nest.ID);
         AbstractDungeon.eventList.remove(ScrapOoze.ID);
         AbstractDungeon.eventList.remove(Sssserpent.ID);
@@ -25,6 +26,7 @@ public class RemoveEventPatch {
         AbstractDungeon.eventList.remove(BackToBasics.ID);  //Ancient Writing
         AbstractDungeon.specialOneTimeEventList.remove(SecretPortal.ID);
         AbstractDungeon.eventList.remove(ShiningLight.ID);
-        BetterThird.logger.info("Removing base Forgotten Altar event.");
+        BetterThird.logger.info("Removing base events.");
+        */
     }
 }

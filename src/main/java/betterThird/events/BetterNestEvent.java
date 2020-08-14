@@ -37,45 +37,45 @@ public class BetterNestEvent extends AbstractImageEvent {
 
         this.optionsChosen = "";
         this.screen = CurScreen.INTRO;
-        this.imageEventText.setDialogOption(OPTIONS[5]);// 33
-        if (AbstractDungeon.ascensionLevel >= 15) {// 35
-            this.goldGain = 50;// 36
+        this.imageEventText.setDialogOption(OPTIONS[5]);
+        if (AbstractDungeon.ascensionLevel >= 15) {
+            this.goldGain = 50;
         } else {
-            this.goldGain = 99;// 38
+            this.goldGain = 99;
         }
 
     }
 
     @Override
     protected void buttonEffect(int buttonPressed) {
-        switch(screen) {// 44
+        switch(screen) {
             case INTRO:
-                this.imageEventText.updateBodyText(INTRO_BODY_M_2);// 46
-                this.imageEventText.setDialogOption(OPTIONS[0] + 6 + OPTIONS[1], new RitualDagger());// 47
-                UnlockTracker.markCardAsSeen("RitualDagger");// 48
-                this.imageEventText.updateDialogOption(0, OPTIONS[2] + this.goldGain + OPTIONS[3]);// 49
+                this.imageEventText.updateBodyText(INTRO_BODY_M_2);
+                this.imageEventText.setDialogOption(OPTIONS[0] + HP_LOSS + OPTIONS[1], new RitualDagger());
+                UnlockTracker.markCardAsSeen("RitualDagger");
+                this.imageEventText.updateDialogOption(0, OPTIONS[2] + this.goldGain + OPTIONS[3]);
                 this.screen = CurScreen.RESULT;
-                break;// 51
+                break;
             case RESULT:
-                switch(buttonPressed) {// 54
+                switch(buttonPressed) {
                     case 0:
-                        logMetricGainGold("Nest", "Stole From Cult", this.goldGain);// 57
-                        this.imageEventText.updateBodyText(EXIT_BODY);// 58
+                        //logMetricGainGold("Nest", "Stole From Cult", this.goldGain);
+                        this.imageEventText.updateBodyText(EXIT_BODY);
                         this.screen = CurScreen.LEAVE;
-                        AbstractDungeon.effectList.add(new RainingGoldEffect(this.goldGain));// 60
-                        AbstractDungeon.player.gainGold(this.goldGain);// 61
-                        this.imageEventText.updateDialogOption(0, OPTIONS[4]);// 62
-                        this.imageEventText.clearRemainingOptions();// 63
-                        return;// 87
+                        AbstractDungeon.effectList.add(new RainingGoldEffect(this.goldGain));
+                        AbstractDungeon.player.gainGold(this.goldGain);
+                        this.imageEventText.updateDialogOption(0, OPTIONS[4]);
+                        this.imageEventText.clearRemainingOptions();
+                        return;
                     case 1:
-                        AbstractCard c = new RitualDagger();// 66
-                        logMetricObtainCardAndDamage("Nest", "Joined the Cult", c, HP_LOSS);// 67
-                        this.imageEventText.updateBodyText(ACCEPT_BODY);// 68
-                        AbstractDungeon.player.damage(new DamageInfo((AbstractCreature)null, 6));// 69
-                        AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(c, (float) Settings.WIDTH * 0.3F, (float)Settings.HEIGHT / 2.0F));// 70
+                        AbstractCard c = new RitualDagger();
+                        //logMetricObtainCardAndDamage("Nest", "Joined the Cult", c, HP_LOSS);
+                        this.imageEventText.updateBodyText(ACCEPT_BODY);
+                        AbstractDungeon.player.damage(new DamageInfo(null, HP_LOSS));
+                        AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(c, (float) Settings.WIDTH * 0.3F, (float)Settings.HEIGHT / 2.0F));
                         this.screen = CurScreen.LEAVE;
-                        this.imageEventText.updateDialogOption(0, OPTIONS[4]);// 73
-                        this.imageEventText.clearRemainingOptions();// 74
+                        this.imageEventText.updateDialogOption(0, OPTIONS[4]);
+                        this.imageEventText.clearRemainingOptions();
                         return;
                     default:
                         return;
