@@ -41,8 +41,9 @@ public class NestCultRelic extends CustomRelic {
 
     @Override
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0];
+        return DESCRIPTIONS[0] + ritual + DESCRIPTIONS[1];
     }
+
 
     @Override
     public void atBattleStart() {
