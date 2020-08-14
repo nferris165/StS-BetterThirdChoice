@@ -7,7 +7,7 @@
       "You decide to stay in line (out of fear) to see what will happen. NL NL Eventually, you are face-to-face with the leader. A well-dressed cultist hands you an #yOrnate #yDagger. Like the others before you, you slash your forearm and let the blood drip into a misshapen bowl. NL NL The cultists @chant@ and @holler@ for you! NL NL #b~\"CAAW~ #b~CAW~ #b~CAAAAAAWW!!\"~ NL NL You chant, too. Why not?",
       "They didn't even notice.",
       "",
-      ""
+      "You step out of the line to grab a spare #ymask lying around. NL Having donned the #ymask, you start noticing @details@ in the world around you that could have sworn never existed before. NL NL #b~\"CAAW~ #b~CAW~ #b~CAAAAAAWW!!\"~ NL NL You chant along with the mob and realize you've never had a group of @friends@ who understood you this well..."
     ],
     "OPTIONS": [
       "[Stay in Line] #gObtain Ritual Dagger. #rLose #r",
@@ -15,7 +15,8 @@
       "[Smash and Grab] #gObtain #g",
       " #gGold.",
       "[Leave]",
-      "[Continue]"
+      "[Continue]",
+      "[Surrender to Madness] #gObtain Ritual Mask."
     ]
   },
   "betterThird:BetterGoop": {

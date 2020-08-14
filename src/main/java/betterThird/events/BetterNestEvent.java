@@ -1,10 +1,10 @@
 package betterThird.events;
 
 import betterThird.BetterThird;
+import betterThird.relics.NestCultRelic;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.cards.colorless.RitualDagger;
-import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -27,6 +27,7 @@ public class BetterNestEvent extends AbstractImageEvent {
     private static final String INTRO_BODY_M_2;
     private static final String ACCEPT_BODY;
     private static final String EXIT_BODY;
+    private static final String JOIN_BODY;
     private static final int HP_LOSS = 6;
     private int goldGain;
     private CurScreen screen;
@@ -51,9 +52,10 @@ public class BetterNestEvent extends AbstractImageEvent {
         switch(screen) {
             case INTRO:
                 this.imageEventText.updateBodyText(INTRO_BODY_M_2);
+                this.imageEventText.updateDialogOption(0, OPTIONS[2] + this.goldGain + OPTIONS[3]);
                 this.imageEventText.setDialogOption(OPTIONS[0] + HP_LOSS + OPTIONS[1], new RitualDagger());
                 UnlockTracker.markCardAsSeen("RitualDagger");
-                this.imageEventText.updateDialogOption(0, OPTIONS[2] + this.goldGain + OPTIONS[3]);
+                this.imageEventText.setDialogOption(OPTIONS[6], new NestCultRelic());
                 this.screen = CurScreen.RESULT;
                 break;
             case RESULT:
@@ -77,6 +79,14 @@ public class BetterNestEvent extends AbstractImageEvent {
                         this.imageEventText.updateDialogOption(0, OPTIONS[4]);
                         this.imageEventText.clearRemainingOptions();
                         return;
+                    case 2:
+                        AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float) (Settings.WIDTH / 2), (float) (Settings.HEIGHT / 2), new NestCultRelic());
+                        //metrics
+                        this.imageEventText.updateBodyText(JOIN_BODY);
+                        this.screen = CurScreen.LEAVE;
+                        this.imageEventText.updateDialogOption(0, OPTIONS[4]);
+                        this.imageEventText.clearRemainingOptions();
+                        return;
                     default:
                         return;
                 }
@@ -93,6 +103,7 @@ public class BetterNestEvent extends AbstractImageEvent {
         INTRO_BODY_M_2 = DESCRIPTIONS[1];
         ACCEPT_BODY = DESCRIPTIONS[2];
         EXIT_BODY = DESCRIPTIONS[3];
+        JOIN_BODY = DESCRIPTIONS[5];
     }
 
     private enum CurScreen {
