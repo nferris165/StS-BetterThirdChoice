@@ -31,12 +31,10 @@ public class BetterNestEvent extends AbstractImageEvent {
     private static final int HP_LOSS = 6;
     private int goldGain;
     private CurScreen screen;
-    private String optionsChosen;
 
     public BetterNestEvent() {
         super(NAME, DESCRIPTIONS[0], IMG);
 
-        this.optionsChosen = "";
         this.screen = CurScreen.INTRO;
         this.imageEventText.setDialogOption(OPTIONS[5]);
         if (AbstractDungeon.ascensionLevel >= 15) {
@@ -61,7 +59,7 @@ public class BetterNestEvent extends AbstractImageEvent {
             case RESULT:
                 switch(buttonPressed) {
                     case 0:
-                        //logMetricGainGold("Nest", "Stole From Cult", this.goldGain);
+                        //logMetricGainGold(ID, "Steal", this.goldGain);
                         this.imageEventText.updateBodyText(EXIT_BODY);
                         this.screen = CurScreen.LEAVE;
                         AbstractDungeon.effectList.add(new RainingGoldEffect(this.goldGain));
@@ -71,7 +69,7 @@ public class BetterNestEvent extends AbstractImageEvent {
                         return;
                     case 1:
                         AbstractCard c = new RitualDagger();
-                        //logMetricObtainCardAndDamage("Nest", "Joined the Cult", c, HP_LOSS);
+                        //logMetricObtainCardAndDamage(ID, "Dagger", c, HP_LOSS);
                         this.imageEventText.updateBodyText(ACCEPT_BODY);
                         AbstractDungeon.player.damage(new DamageInfo(null, HP_LOSS));
                         AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(c, (float) Settings.WIDTH * 0.3F, (float)Settings.HEIGHT / 2.0F));
@@ -81,7 +79,7 @@ public class BetterNestEvent extends AbstractImageEvent {
                         return;
                     case 2:
                         AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float) (Settings.WIDTH / 2), (float) (Settings.HEIGHT / 2), new NestCultRelic());
-                        //metrics
+                        //logMetricObtainRelic(ID, "Madness", new NestCultRelic());
                         this.imageEventText.updateBodyText(JOIN_BODY);
                         this.screen = CurScreen.LEAVE;
                         this.imageEventText.updateDialogOption(0, OPTIONS[4]);
