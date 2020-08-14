@@ -12,7 +12,7 @@ import com.megacrit.cardcrawl.events.exordium.ShiningLight;
 import com.megacrit.cardcrawl.events.exordium.Sssserpent;
 import com.megacrit.cardcrawl.helpers.EventHelper;
 
-import static betterThird.BetterThird.nest;
+import static betterThird.BetterThird.*;
 
 public class EventHelperPatch {
     @SpirePatch(
@@ -25,17 +25,17 @@ public class EventHelperPatch {
 
             if (__result instanceof Nest && nest) {
                 return new BetterNestEvent();
-            } else if(__result instanceof ScrapOoze) {
+            } else if(__result instanceof ScrapOoze && scrap) {
                 return new BetterScrapEvent();
-            } else if(__result instanceof Sssserpent) {
+            } else if(__result instanceof Sssserpent  && serpent) {
                 return new BetterSerpentEvent();
-            } else if(__result instanceof GoopPuddle) {
+            } else if(__result instanceof GoopPuddle && goop) {
                 return new BetterGoopEvent();
-            } else if(__result instanceof BackToBasics) {
+            } else if(__result instanceof BackToBasics && writing) {
                 return new BetterWritingEvent();
-            } else if(__result instanceof SecretPortal) {
+            } else if(__result instanceof SecretPortal && portal) {
                 return new BetterPortalEvent();
-            } else if(__result instanceof ShiningLight) {
+            } else if(__result instanceof ShiningLight && shining) {
                 return new BetterShiningEvent();
             }
             return __result;

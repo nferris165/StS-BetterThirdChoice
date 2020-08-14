@@ -4,8 +4,6 @@ import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
 import basemod.ReflectionHacks;
-import basemod.eventUtil.AddEventParams;
-import basemod.eventUtil.EventUtils;
 import basemod.helpers.RelicType;
 import basemod.interfaces.*;
 import betterThird.relics.NestCultRelic;
@@ -46,10 +44,20 @@ public class BetterThird implements
 
     //mod settings
     public static Properties defaultSettings = new Properties();
-    public static final String option_limit_settings = "ascensionLimit";
-    public static boolean optionLimit = false;
     private static final String nest_settings = "nest";
     public static boolean nest = true;
+    private static final String goop_settings = "goop";
+    public static boolean goop = true;
+    private static final String portal_settings = "portal";
+    public static boolean portal = true;
+    private static final String scrap_settings = "scrap";
+    public static boolean scrap = true;
+    private static final String serpent_settings = "serpent";
+    public static boolean serpent = true;
+    private static final String shining_settings = "shining";
+    public static boolean shining = true;
+    private static final String writing_settings = "writing";
+    public static boolean writing = true;
 
     private static final String MODNAME = "Better Third";
     private static final String AUTHOR = "Nichilas";
@@ -104,14 +112,24 @@ public class BetterThird implements
         BaseMod.subscribe(this);
 
         logger.info("Adding mod settings");
-        defaultSettings.setProperty(option_limit_settings, "FALSE");
+        defaultSettings.setProperty(goop_settings, "TRUE");
         defaultSettings.setProperty(nest_settings, "TRUE");
+        defaultSettings.setProperty(portal_settings, "TRUE");
+        defaultSettings.setProperty(scrap_settings, "TRUE");
+        defaultSettings.setProperty(serpent_settings, "TRUE");
+        defaultSettings.setProperty(shining_settings, "TRUE");
+        defaultSettings.setProperty(writing_settings, "TRUE");
 
         try {
             SpireConfig config = new SpireConfig("betterThird", "betterThirdConfig", defaultSettings);
             config.load();
-            optionLimit = config.getBool(option_limit_settings);
+            goop = config.getBool(goop_settings);
             nest = config.getBool(nest_settings);
+            portal = config.getBool(portal_settings);
+            scrap = config.getBool(scrap_settings);
+            serpent = config.getBool(serpent_settings);
+            shining = config.getBool(shining_settings);
+            writing = config.getBool(writing_settings);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -189,24 +207,24 @@ public class BetterThird implements
         Texture badgeTexture = TextureLoader.getTexture(BADGE_IMAGE);
         ModPanel settingsPanel = new ModPanel();
 
-        ModLabeledToggleButton ascLimitButton = new ModLabeledToggleButton("Disables Dispel option.",
+        ModLabeledToggleButton goopButton = new ModLabeledToggleButton("Enables Better World of Goop.",
                 350.0f, 750.0f, Settings.CREAM_COLOR, FontHelper.charDescFont,
-                optionLimit,
+                goop,
                 settingsPanel,
                 (label) -> {},
                 (button) -> {
 
-                    optionLimit = button.enabled;
+                    goop = button.enabled;
                     try {
                         SpireConfig config = new SpireConfig("betterThird", "betterThirdConfig", defaultSettings);
-                        config.setBool(option_limit_settings, optionLimit);
+                        config.setBool(goop_settings, goop);
                         config.save();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 });
 
-        ModLabeledToggleButton nestButton = new ModLabeledToggleButton("Enable Better Nest.",
+        ModLabeledToggleButton nestButton = new ModLabeledToggleButton("Enables Better Nest.",
                 350.0f, 700.0f, Settings.CREAM_COLOR, FontHelper.charDescFont,
                 nest,
                 settingsPanel,
@@ -223,9 +241,99 @@ public class BetterThird implements
                     }
                 });
 
+        ModLabeledToggleButton portalButton = new ModLabeledToggleButton("Enables Better Secret Portal.",
+                350.0f, 650.0f, Settings.CREAM_COLOR, FontHelper.charDescFont,
+                portal,
+                settingsPanel,
+                (label) -> {},
+                (button) -> {
 
-        settingsPanel.addUIElement(ascLimitButton);
+                    portal = button.enabled;
+                    try {
+                        SpireConfig config = new SpireConfig("betterThird", "betterThirdConfig", defaultSettings);
+                        config.setBool(portal_settings, portal);
+                        config.save();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
+        ModLabeledToggleButton scrapButton = new ModLabeledToggleButton("Enables Better Scrap Ooze.",
+                350.0f, 600.0f, Settings.CREAM_COLOR, FontHelper.charDescFont,
+                scrap,
+                settingsPanel,
+                (label) -> {},
+                (button) -> {
+
+                    scrap = button.enabled;
+                    try {
+                        SpireConfig config = new SpireConfig("betterThird", "betterThirdConfig", defaultSettings);
+                        config.setBool(scrap_settings, scrap);
+                        config.save();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
+        ModLabeledToggleButton serpentButton = new ModLabeledToggleButton("Enables Better Ssssserpent.",
+                350.0f, 550.0f, Settings.CREAM_COLOR, FontHelper.charDescFont,
+                serpent,
+                settingsPanel,
+                (label) -> {},
+                (button) -> {
+
+                    serpent = button.enabled;
+                    try {
+                        SpireConfig config = new SpireConfig("betterThird", "betterThirdConfig", defaultSettings);
+                        config.setBool(serpent_settings, serpent);
+                        config.save();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
+        ModLabeledToggleButton shiningButton = new ModLabeledToggleButton("Enables Better Shining Light.",
+                350.0f, 500.0f, Settings.CREAM_COLOR, FontHelper.charDescFont,
+                shining,
+                settingsPanel,
+                (label) -> {},
+                (button) -> {
+
+                    shining = button.enabled;
+                    try {
+                        SpireConfig config = new SpireConfig("betterThird", "betterThirdConfig", defaultSettings);
+                        config.setBool(shining_settings, shining);
+                        config.save();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
+        ModLabeledToggleButton writingButton = new ModLabeledToggleButton("Enables Better Ancient Writing.",
+                350.0f, 450.0f, Settings.CREAM_COLOR, FontHelper.charDescFont,
+                writing,
+                settingsPanel,
+                (label) -> {},
+                (button) -> {
+
+                    writing = button.enabled;
+                    try {
+                        SpireConfig config = new SpireConfig("betterThird", "betterThirdConfig", defaultSettings);
+                        config.setBool(writing_settings, writing);
+                        config.save();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
+
+        settingsPanel.addUIElement(goopButton);
         settingsPanel.addUIElement(nestButton);
+        settingsPanel.addUIElement(portalButton);
+        settingsPanel.addUIElement(scrapButton);
+        settingsPanel.addUIElement(serpentButton);
+        settingsPanel.addUIElement(shiningButton);
+        settingsPanel.addUIElement(writingButton);
         BaseMod.registerModBadge(badgeTexture, MODNAME, AUTHOR, DESCRIPTION, settingsPanel);
 
         //events

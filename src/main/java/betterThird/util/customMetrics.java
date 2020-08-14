@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.UUID;
 
+import static betterThird.BetterThird.*;
+
 public class customMetrics implements Runnable {
 
     private HashMap<Object, Object> params = new HashMap<>();
@@ -134,7 +136,8 @@ public class customMetrics implements Runnable {
 
 
         //addData("event_choices", CardCrawlGame.metricData.event_choices);
-        addData("heal_limit", BetterThird.optionLimit);
+        addData("enabled_events", getDisabledEvents());
+
         addData("mods", getModList());
     }
 
@@ -176,6 +179,32 @@ public class customMetrics implements Runnable {
             }
         }
         return map;
+    }
+
+    private String getDisabledEvents(){
+        String events = "";
+        if(!nest){
+            events += "Nest ";
+        }
+        if(!goop){
+            events += "Goop ";
+        }
+        if(!portal){
+            events += "Portal ";
+        }
+        if(!scrap){
+            events += "Scrap ";
+        }
+        if(!serpent){
+            events += "Serpent ";
+        }
+        if(!shining){
+            events += "Shining ";
+        }
+        if(!writing){
+            events += "Writing ";
+        }
+        return events;
     }
 
     public void run()
