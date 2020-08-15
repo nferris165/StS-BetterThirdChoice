@@ -34,12 +34,10 @@ public class BetterShiningEvent extends AbstractImageEvent {
     private static final float HP_LOSS_PERCENT = 0.2F;
     private static final float A_2_HP_LOSS_PERCENT = 0.3F;
     private CUR_SCREEN screen;
-    private String optionsChosen;
 
     public BetterShiningEvent() {
         super(NAME, DESCRIPTIONS[0], IMG);
 
-        this.optionsChosen = "";
         this.card = new Apotheosis();
         this.burn = new Burn();
         this.burnChance = 75;
@@ -57,7 +55,7 @@ public class BetterShiningEvent extends AbstractImageEvent {
             this.imageEventText.setDialogOption(OPTIONS[3], true);
         }
 
-        this.imageEventText.setDialogOption(OPTIONS[4] + this.card + OPTIONS[5] + this.burnChance + OPTIONS[6], this.burn);
+        this.imageEventText.setDialogOption(OPTIONS[4] + this.card + OPTIONS[5] + this.burnChance + OPTIONS[6], this.card);
         this.imageEventText.setDialogOption(OPTIONS[2]);
     }
 
@@ -81,11 +79,13 @@ public class BetterShiningEvent extends AbstractImageEvent {
                     AbstractDungeon.effectList.add(new FlashAtkImgEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, AbstractGameAction.AttackEffect.FIRE));
                     this.upgradeCards();
                 } else if (buttonPressed == 1){
+                    String choice = "Embrace";
                     int roll = AbstractDungeon.miscRng.random(0,99);
                     if(roll < burnChance){
                         AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(card, (float) Settings.WIDTH * 0.4F, (float)Settings.HEIGHT / 2.0F, false));
                         AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(burn, (float)Settings.WIDTH  * 0.6F, (float)Settings.HEIGHT / 2.0F, false));
                         this.imageEventText.updateBodyText(EMBRACE_DIALOG + BURN_DIALOG);
+                        choice += " Burn";
                     }
                     else{
                         AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(card, (float) Settings.WIDTH * 0.5F, (float)Settings.HEIGHT / 2.0F, false));
@@ -94,13 +94,13 @@ public class BetterShiningEvent extends AbstractImageEvent {
                     this.imageEventText.clearAllDialogs();
                     this.imageEventText.setDialogOption(OPTIONS[2]);
                     this.screen = CUR_SCREEN.COMPLETE;
-                    //AbstractEvent.logMetric
+                    //logMetric(ID, choice);
                 } else if (buttonPressed == 2){
                     this.imageEventText.updateBodyText(DISAGREE_DIALOG);
                     this.imageEventText.clearAllDialogs();
                     this.imageEventText.setDialogOption(OPTIONS[2]);
                     this.screen = CUR_SCREEN.COMPLETE;
-                    //AbstractEvent.logMetricIgnored("Shining Light");
+                    //logMetricIgnored(ID);
                 }
                 break;
             default:
@@ -141,7 +141,7 @@ public class BetterShiningEvent extends AbstractImageEvent {
             }
         }
 
-        //AbstractEvent.logMetric("Shining Light", "Entered Light", null, null, null, cardMetrics, null, null, null, this.damage, 0, 0, 0, 0, 0);
+        //logMetric(ID, "Upgrade", null, null, null, cardMetrics, null, null, null, this.damage, 0, 0, 0, 0, 0);
     }
 
     static {
