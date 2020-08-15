@@ -87,9 +87,10 @@
     "NAME": "Better Shining Light",
     "DESCRIPTIONS": [
       "You find a shimmering #ymass #yof #ylight encompassing the center of the room. NL NL Its ~warm~ ~glow~ and ~enchanting~ ~patterns~ invite you in.",
-      "As you walk through the light, you notice that the light is absorbed into you. NL It's #r@scorching@ #r@hot@ ! However, the pain quickly recedes. NL You feel #binvigorated, as though you received a well deserved slap.",
+      "You reach carefully into the light. NL It's #r@scorching@ #r@hot@ ! However, the pain quickly recedes. NL You feel somehow healthier, faster, and stronger than you've ever felt before.",
       "You walk around it, wondering what could have been.",
-      ""
+      "As you walk through the light, you notice that the light is absorbed into you. NL You feel the light surround you, penetrate you, binding you to some greater #bForce.",
+      " NL NL OUCH! You reel back in pain, having been burned by the intense #rheat. NL What did you think would happen?"
     ],
     "OPTIONS": [
       "[Touch] #gUpgrade #g2 #grandom #gcards. #rLose #r",

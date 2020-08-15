@@ -28,7 +28,7 @@ public class BetterShiningEvent extends AbstractImageEvent {
     private static final String[] OPTIONS = eventStrings.OPTIONS;
     private static final String IMG = "images/events/shiningLight.jpg";
 
-    private static final String AGREE_DIALOG, EMBRACE_DIALOG, DISAGREE_DIALOG;
+    private static final String AGREE_DIALOG, EMBRACE_DIALOG, DISAGREE_DIALOG, BURN_DIALOG;
     private int damage, burnChance;
     private AbstractCard card, burn;
     private static final float HP_LOSS_PERCENT = 0.2F;
@@ -85,12 +85,12 @@ public class BetterShiningEvent extends AbstractImageEvent {
                     if(roll < burnChance){
                         AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(card, (float) Settings.WIDTH * 0.4F, (float)Settings.HEIGHT / 2.0F, false));
                         AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(burn, (float)Settings.WIDTH  * 0.6F, (float)Settings.HEIGHT / 2.0F, false));
+                        this.imageEventText.updateBodyText(EMBRACE_DIALOG + BURN_DIALOG);
                     }
                     else{
                         AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(card, (float) Settings.WIDTH * 0.5F, (float)Settings.HEIGHT / 2.0F, false));
-
+                        this.imageEventText.updateBodyText(EMBRACE_DIALOG);
                     }
-                    this.imageEventText.updateBodyText(EMBRACE_DIALOG);
                     this.imageEventText.clearAllDialogs();
                     this.imageEventText.setDialogOption(OPTIONS[2]);
                     this.screen = CUR_SCREEN.COMPLETE;
@@ -148,6 +148,7 @@ public class BetterShiningEvent extends AbstractImageEvent {
         AGREE_DIALOG = DESCRIPTIONS[1];
         DISAGREE_DIALOG = DESCRIPTIONS[2];
         EMBRACE_DIALOG = DESCRIPTIONS[3];
+        BURN_DIALOG = DESCRIPTIONS[4];
     }
 
     private enum CUR_SCREEN {
