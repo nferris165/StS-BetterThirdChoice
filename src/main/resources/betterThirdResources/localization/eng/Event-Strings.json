@@ -88,13 +88,17 @@
     "DESCRIPTIONS": [
       "You find a shimmering #ymass #yof #ylight encompassing the center of the room. NL NL Its ~warm~ ~glow~ and ~enchanting~ ~patterns~ invite you in.",
       "As you walk through the light, you notice that the light is absorbed into you. NL It's #r@scorching@ #r@hot@ ! However, the pain quickly recedes. NL You feel #binvigorated, as though you received a well deserved slap.",
-      "You walk around it, wondering what could have been."
+      "You walk around it, wondering what could have been.",
+      ""
     ],
     "OPTIONS": [
-      "[Enter] #gUpgrade #g2 #grandom #gcards. #rLose #r",
+      "[Touch] #gUpgrade #g2 #grandom #gcards. #rLose #r",
       " #rHP.",
       "[Leave]",
-      "[Locked] Requires: Upgradeable Cards"
+      "[Locked] Requires: Upgradeable Cards",
+      "[Enter] #gObtain ",
+      ". #r",
+      "%: #rReceive #rBurn."
     ]
   },
   "betterThird:BetterWriting": {
