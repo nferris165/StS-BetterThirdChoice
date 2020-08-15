@@ -73,14 +73,18 @@
       "You walk into a room to find a large hole in the ground. As you approach the hole, an enormous serpent creature appears from within. NL NL ~\"Ho~ ~hooo!~ ~Hello~ ~hello!~ ~what~ ~have~ ~we~ ~got~ ~here?~ Hello adventurer, I ask a simple question. NL The most fulfilling of lives is that in which you can #y~buy~ #y~anything!~ NL Do you agree?\"",
       "~\"Yeeeeeeessssssssssessss!~ NL ~Thisss~ ~will~ ~all~ ~be~ ~worthhh~ ~it.~ NL ~..ssSSs.....~ ~ss...~ ~sssss....!\"~",
       "The serpent stares at you with a look of extreme disappointment.",
-      "The serpent rears its head and blasts a stream of #ygold upwards! NL It is amazing and terrifying simultaneously. NL You gather all the #ygold, thank the snake, and get going."
+      "The serpent rears its head and blasts a stream of #ygold upwards! NL It is amazing and terrifying simultaneously. NL You gather all the #ygold, thank the snake, and get going.",
+      "You begin to empty your pockets, carelessly tossing every #ygold piece you can find. NL You feel suddenly less burdened, free to go about chasing your desires. NL NL The serpent stares at you, unable to comprehend your @stupidity.@",
+      "The serpent greedily gathers up all the #ygold you have tossed on the ground, unable to contain her joy. Unconcerned with the serpent's actions, you jauntily stroll away. NL NL You can't help but feel Lady Luck smiling on you..."
     ],
     "OPTIONS": [
       "[Agree] #gGain #g",
       " #gGold. #rBecome #rCursed #r- #rDoubt.",
-      "[Disagree]",
+      "[Ignore]",
       "[Continue]",
-      "[Leave]"
+      "[Leave]",
+      "[Renounce Wealth] #gGain ",
+      ". #rLose #rALL #yGold."
     ]
   },
   "betterThird:BetterShining": {

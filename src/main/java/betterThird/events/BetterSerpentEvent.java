@@ -2,16 +2,19 @@ package betterThird.events;
 
 import betterThird.BetterThird;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.colorless.Enlightenment;
 import com.megacrit.cardcrawl.cards.curses.Doubt;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.EventStrings;
 import com.megacrit.cardcrawl.vfx.RainingGoldEffect;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BetterSerpentEvent extends AbstractImageEvent {
 
@@ -23,76 +26,96 @@ public class BetterSerpentEvent extends AbstractImageEvent {
     private static final String[] OPTIONS = eventStrings.OPTIONS;
     private static final String IMG = "images/events/liarsGame.jpg";
 
-    private static final String AGREE_DIALOG;
-    private static final String DISAGREE_DIALOG;
-    private static final String GOLD_RAIN_MSG;
+    private static final String AGREE_DIALOG, IGNORE_DIALOG, GOLD_RAIN_MSG, RENOUNCE_DIALOG, ENLIGHTEN_MSG;
     private CUR_SCREEN screen;
     private static final int GOLD_REWARD = 175;
     private static final int A_2_GOLD_REWARD = 150;
-    private int goldReward;
-    private AbstractCard curse;
-    private String optionsChosen;
+    private int goldReward, goldCost;
+    private AbstractCard curse, card;
 
     public BetterSerpentEvent() {
         super(NAME, DESCRIPTIONS[0], IMG);
 
-        this.optionsChosen = "";
-        this.screen = CUR_SCREEN.INTRO;// 27
-        if (AbstractDungeon.ascensionLevel >= 15) {// 47
-            this.goldReward = A_2_GOLD_REWARD;// 48
+        this.screen = CUR_SCREEN.INTRO;
+        this.card = new Enlightenment();
+        this.card.misc = 1;
+        this.goldCost = AbstractDungeon.player.gold;
+        if (AbstractDungeon.ascensionLevel >= 15) {
+            this.goldReward = A_2_GOLD_REWARD;
         } else {
-            this.goldReward = GOLD_REWARD;// 50
+            this.goldReward = GOLD_REWARD;
         }
 
-        this.curse = new Doubt();// 52
-        this.imageEventText.setDialogOption(OPTIONS[0] + this.goldReward + OPTIONS[1], CardLibrary.getCopy(this.curse.cardID));// 54
+        this.curse = new Doubt();
+        this.imageEventText.setDialogOption(OPTIONS[0] + this.goldReward + OPTIONS[1], CardLibrary.getCopy(this.curse.cardID));
+        this.imageEventText.setDialogOption(OPTIONS[5] + this.card + OPTIONS[6], this.card);
         this.imageEventText.setDialogOption(OPTIONS[2]);
     }
 
     @Override
     public void onEnterRoom() {
-        if (Settings.AMBIANCE_ON) {// 39
-            CardCrawlGame.sound.play("EVENT_SERPENT");// 40
+        if (Settings.AMBIANCE_ON) {
+            CardCrawlGame.sound.play("EVENT_SERPENT");
         }
 
     }
 
     @Override
     protected void buttonEffect(int buttonPressed) {
-        switch(this.screen) {// 60
+        switch(this.screen) {
             case INTRO:
-                if (buttonPressed == 0) {// 62
-                    this.imageEventText.updateBodyText(AGREE_DIALOG);// 63
-                    this.imageEventText.removeDialogOption(1);// 64
-                    this.imageEventText.updateDialogOption(0, OPTIONS[3]);// 65
-                    this.screen = CUR_SCREEN.AGREE;// 66
-                    AbstractEvent.logMetricGainGoldAndCard("Liars Game", "AGREE", this.curse, this.goldReward);// 67
-                } else {
-                    this.imageEventText.updateBodyText(DISAGREE_DIALOG);// 69
-                    this.imageEventText.removeDialogOption(1);// 70
-                    this.imageEventText.updateDialogOption(0, OPTIONS[4]);// 71
-                    this.screen = CUR_SCREEN.DISAGREE;// 72
-                    AbstractEvent.logMetricIgnored("Liars Game");// 73
+                if (buttonPressed == 0) {
+                    this.imageEventText.updateBodyText(AGREE_DIALOG);
+                    this.imageEventText.clearAllDialogs();
+                    this.imageEventText.setDialogOption(OPTIONS[3]);
+                    this.screen = CUR_SCREEN.AGREE;
+                } else if (buttonPressed == 1){
+                    this.imageEventText.updateBodyText(RENOUNCE_DIALOG);
+                    this.imageEventText.clearAllDialogs();
+                    this.imageEventText.setDialogOption(OPTIONS[3]);
+                    this.screen = CUR_SCREEN.DISAGREE;
+                } else if (buttonPressed == 2){
+                    this.imageEventText.updateBodyText(IGNORE_DIALOG);
+                    this.imageEventText.removeDialogOption(1);
+                    this.imageEventText.updateDialogOption(0, OPTIONS[4]);
+                    this.screen = CUR_SCREEN.COMPLETE;
+                    //logMetricIgnored(ID);
                 }
                 break;
             case AGREE:
-                AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(this.curse, (float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F));// 77
-                AbstractDungeon.effectList.add(new RainingGoldEffect(this.goldReward));// 79
-                AbstractDungeon.player.gainGold(this.goldReward);// 80
-                this.imageEventText.updateBodyText(GOLD_RAIN_MSG);// 81
-                this.imageEventText.updateDialogOption(0, OPTIONS[4]);// 82
-                this.screen = CUR_SCREEN.COMPLETE;// 83
-                break;// 84
+                //logMetricGainGoldAndCard(ID, "AGREE", this.curse, this.goldReward);
+                AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(this.curse, (float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F));
+                AbstractDungeon.effectList.add(new RainingGoldEffect(this.goldReward));
+                AbstractDungeon.player.gainGold(this.goldReward);
+                this.imageEventText.updateBodyText(GOLD_RAIN_MSG);
+                this.imageEventText.updateDialogOption(0, OPTIONS[4]);
+                this.screen = CUR_SCREEN.COMPLETE;
+                break;
+            case DISAGREE:
+                List<String> tempList = new ArrayList<>();
+                tempList.add(this.card.cardID);
+//                logMetric(ID, "RENOUNCE", tempList, null, null,
+//                        null, null, null, null, 0,
+//                        0, 0, 0, 0, this.goldCost);
+                AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(this.card, (float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F));
+                AbstractDungeon.player.loseGold(goldCost);
+                this.imageEventText.updateBodyText(ENLIGHTEN_MSG);
+                this.imageEventText.updateDialogOption(0, OPTIONS[4]);
+                this.screen = CUR_SCREEN.COMPLETE;
+                break;
             default:
-                this.openMap();// 86
+                this.openMap();
         }
 
     }// 89
 
     static {
-        AGREE_DIALOG = DESCRIPTIONS[1];// 24
-        DISAGREE_DIALOG = DESCRIPTIONS[2];// 25
-        GOLD_RAIN_MSG = DESCRIPTIONS[3];// 26
+        AGREE_DIALOG = DESCRIPTIONS[1];
+        IGNORE_DIALOG = DESCRIPTIONS[2];
+        GOLD_RAIN_MSG = DESCRIPTIONS[3];
+        RENOUNCE_DIALOG = DESCRIPTIONS[4];
+        ENLIGHTEN_MSG = DESCRIPTIONS[5];
+
     }
 
     private enum CUR_SCREEN {
