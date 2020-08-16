@@ -119,5 +119,17 @@
       "Select a Card to Remove.",
       "[Leave]"
     ]
+  },
+  "betterThird:Bandits": {
+    "NAME": "Bandits",
+    "DESCRIPTIONS": [
+      "You point at a nearby traveler. It appears to be some kind of slithering reptile. NL It's also absolutely overburdened with #ygold! NL The bandits rush over to ~greet~ the reptile, seemingly having already forgotten about you. NL You take this moment to move on, pleased that the greedy serpent will finally be feeding those in need."
+    ],
+    "OPTIONS": [
+      "[Leave]",
+      "[Distract]",
+      " #gUpgrade Enlightenment.",
+      "[Fight!]"
+    ]
   }
 }
