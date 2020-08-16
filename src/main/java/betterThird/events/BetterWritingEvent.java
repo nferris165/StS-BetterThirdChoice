@@ -18,7 +18,6 @@ import com.megacrit.cardcrawl.vfx.cardManip.ShowCardBrieflyEffect;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 public class BetterWritingEvent extends AbstractImageEvent {
 
@@ -32,7 +31,6 @@ public class BetterWritingEvent extends AbstractImageEvent {
 
     private static final String DIALOG_2, DIALOG_3, DIALOG_4, DIALOG_5;
     private CUR_SCREEN screen;
-    private List<String> cardsUpgraded;
     private ArrayList<AbstractCard> cardsToRemove;
     private AbstractCard card;
     private boolean watcher, relic;
@@ -48,7 +46,6 @@ public class BetterWritingEvent extends AbstractImageEvent {
             card.upgrade();
         }
         this.watcher = AbstractDungeon.player.chosenClass == AbstractPlayer.PlayerClass.WATCHER;
-        this.cardsUpgraded = new ArrayList<>();
         this.cardsToRemove = new ArrayList<>();
         this.imageEventText.setDialogOption(OPTIONS[0]);
         if(watcher){
@@ -64,7 +61,6 @@ public class BetterWritingEvent extends AbstractImageEvent {
         if (Settings.AMBIANCE_ON) {
             CardCrawlGame.sound.play("EVENT_ANCIENT");
         }
-        this.cardsUpgraded.clear();
     }
 
     @Override
@@ -73,7 +69,7 @@ public class BetterWritingEvent extends AbstractImageEvent {
         if (!AbstractDungeon.gridSelectScreen.selectedCards.isEmpty()) {
             AbstractCard c = AbstractDungeon.gridSelectScreen.selectedCards.get(0);
             AbstractDungeon.effectList.add(new PurgeCardEffect(c));
-            //AbstractEvent.logMetricCardRemoval("Back to Basics", "Elegance", c);
+            //logMetricCardRemoval(ID, "Elegance", c);
             AbstractDungeon.player.masterDeck.removeCard(c);
             AbstractDungeon.gridSelectScreen.selectedCards.remove(c);
         }
@@ -99,6 +95,7 @@ public class BetterWritingEvent extends AbstractImageEvent {
                         if(relic){
                             AbstractDungeon.player.getRelic(ArtOfWar.ID).flash();
                         }
+                        //logMetricObtainCardAndDamage(ID, "Insight", card, relic?1:0); // saved relic status as damage taken
                         AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(this.card, (float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F));
                         this.imageEventText.updateBodyText(DIALOG_5);
                     }
@@ -125,12 +122,13 @@ public class BetterWritingEvent extends AbstractImageEvent {
 
     private void upgradeStrikeAndDefends() {
         Iterator var1 = AbstractDungeon.player.masterDeck.group.iterator();
+        int count = 0;
 
         while(true) {
             AbstractCard c;
             do {
                 if(!var1.hasNext()) {
-                    //AbstractEvent.logMetricUpgradeCards(ID, "Simplicity", this.cardsUpgraded);
+                    //logMetricMaxHPLoss(ID, "Simplicity", count); //card count saved as max hp lost
                     return;
                 }
 
@@ -139,7 +137,7 @@ public class BetterWritingEvent extends AbstractImageEvent {
 
             if(c.canUpgrade()) {
                 c.upgrade();
-                this.cardsUpgraded.add(c.cardID);
+                count++;
                 AbstractDungeon.player.bottledCardUpgradeCheck(c);
                 AbstractDungeon.effectList.add(new ShowCardBrieflyEffect(c.makeStatEquivalentCopy(), MathUtils.random(0.1F, 0.9F) * (float)Settings.WIDTH,
                         MathUtils.random(0.2F, 0.8F) * (float)Settings.HEIGHT));
@@ -153,6 +151,7 @@ public class BetterWritingEvent extends AbstractImageEvent {
                 cardsToRemove.add(c);
             }
         }
+        //logMetricHeal(ID, "Materialism", cardsToRemove.size()); //card count saved as healing
         for(AbstractCard c: cardsToRemove){
             AbstractDungeon.effectList.add(new ShowCardBrieflyEffect(c.makeStatEquivalentCopy(),
                     MathUtils.random(0.1F, 0.9F) * (float)Settings.WIDTH,
