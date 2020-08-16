@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.events.exordium.GoopPuddle;
 import com.megacrit.cardcrawl.events.exordium.ScrapOoze;
 import com.megacrit.cardcrawl.events.exordium.ShiningLight;
 import com.megacrit.cardcrawl.events.exordium.Sssserpent;
+import com.megacrit.cardcrawl.events.shrines.GoldShrine;
 
 @SpirePatch(
         clz=AbstractDungeon.class,
@@ -28,5 +29,9 @@ public class RemoveEventPatch {
         AbstractDungeon.eventList.remove(ShiningLight.ID);
         BetterThird.logger.info("Removing base events.");
         */
+
+        if(MaskedBanditsPatch.enlightenCheck()){
+            AbstractDungeon.shrineList.remove(GoldShrine.ID);
+        }
     }
 }

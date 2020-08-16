@@ -100,7 +100,7 @@ public class MaskedBanditsPatch {
         }
     }
 
-    private static boolean enlightenCheck(){
+    public static boolean enlightenCheck(){
         for(AbstractCard c: AbstractDungeon.player.masterDeck.group){
             if(c instanceof Enlightenment){
                 if(c.misc == 1){

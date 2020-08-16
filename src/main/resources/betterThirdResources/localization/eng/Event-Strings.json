@@ -111,13 +111,17 @@
     "DESCRIPTIONS": [
       "Scaling the city, you notice a wall covered in the writing of #y~Ancients.~ As you try to wrap your head around what the puzzling symbols and glyphs could mean, the writing begins to #b~glow.~ NL Suddenly, the message becomes clear...",
       "The answer was elegance. NL Of course.",
-      "The truth is always simple."
+      "The truth is always simple.",
+      "Aha! It is all becoming clear now.",
+      "You realize that your possessions are merely weighing you down."
     ],
     "OPTIONS": [
       "[Elegance] #gRemove #ga #gcard #gfrom #gyour #gdeck.",
       "[Simplicity] #gUpgrade #gall #gStrikes #gand #gDefends.",
       "Select a Card to Remove.",
-      "[Leave]"
+      "[Leave]",
+      "[Insight] #gObtain ",
+      "[Materialism] #gRemove #gall #gStrikes #gand #gDefends."
     ]
   },
   "betterThird:Bandits": {
