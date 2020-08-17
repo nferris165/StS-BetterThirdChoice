@@ -46,8 +46,8 @@ public class MaskedBanditsPatch {
                     card.upgrade();
                     AbstractDungeon.player.bottledCardUpgradeCheck(card);
                     AbstractDungeon.effectList.add(new ShowCardBrieflyEffect(card.makeStatEquivalentCopy(), 0.5F * (float) Settings.WIDTH, 0.5F * (float)Settings.HEIGHT));
-                    ReflectionHacks.setPrivate(__instance,MaskedBandits.class,"screen", null);
                 }
+                ReflectionHacks.setPrivate(__instance,MaskedBandits.class,"screen", null);
                 return SpireReturn.Return(null);
             }
             return SpireReturn.Continue();

@@ -61,6 +61,7 @@ public class BetterPortalEvent extends AbstractImageEvent {
         } else {
         }
 
+        //TODO prismatic
     }
 
     private static void generatePortal(){
