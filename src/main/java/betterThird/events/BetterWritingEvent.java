@@ -33,7 +33,7 @@ public class BetterWritingEvent extends AbstractImageEvent {
     private CUR_SCREEN screen;
     private ArrayList<AbstractCard> cardsToRemove;
     private AbstractCard card;
-    private boolean watcher, relic;
+    private boolean watcher, defect, relic;
 
 
     public BetterWritingEvent() {
@@ -46,10 +46,13 @@ public class BetterWritingEvent extends AbstractImageEvent {
             card.upgrade();
         }
         this.watcher = AbstractDungeon.player.chosenClass == AbstractPlayer.PlayerClass.WATCHER;
+        this.defect = AbstractDungeon.player.chosenClass == AbstractPlayer.PlayerClass.DEFECT;
         this.cardsToRemove = new ArrayList<>();
         this.imageEventText.setDialogOption(OPTIONS[0]);
         if(watcher){
             this.imageEventText.setDialogOption(OPTIONS[5]);
+        } else if(defect){
+            this.imageEventText.setDialogOption("[upgrade]");
         } else{
             this.imageEventText.setDialogOption(OPTIONS[4] + card.name + ".", card);
         }
@@ -90,14 +93,17 @@ public class BetterWritingEvent extends AbstractImageEvent {
                 } else if(buttonPressed == 1){
                     if(watcher){
                         removeStrikeAndDefends();
-                        this.imageEventText.updateBodyText(DIALOG_4);
+                        this.imageEventText.updateBodyText(DIALOG_5);
+                    } else if(defect && false){
+                        this.imageEventText.updateBodyText("get big");
+                        AbstractDungeon.player.maxOrbs++;
                     } else{
                         if(relic){
                             AbstractDungeon.player.getRelic(ArtOfWar.ID).flash();
                         }
                         //logMetricObtainCardAndDamage(ID, "Insight", card, relic?1:0); // saved relic status as damage taken
                         AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(this.card, (float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F));
-                        this.imageEventText.updateBodyText(DIALOG_5);
+                        this.imageEventText.updateBodyText(DIALOG_4);
                     }
                     this.imageEventText.updateDialogOption(0, OPTIONS[3]);
                     this.imageEventText.clearRemainingOptions();

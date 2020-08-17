@@ -169,6 +169,7 @@ public class BetterThird implements
     @Override
     public void receiveEditRelics() {
         BaseMod.addRelic(new NestCultRelic(), RelicType.SHARED);
+        //BaseMod.addRelic();
     }
 
     @Override

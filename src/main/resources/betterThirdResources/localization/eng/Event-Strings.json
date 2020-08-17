@@ -70,7 +70,9 @@
       "[Deeper] #rLose #r",
       "%: #gFind ",
       ".",
-      "[Locked] Already obtained."
+      "[Locked] Already obtained.",
+      "[Locked] Requires: Card with ",
+      " or more defense."
     ]
   },
   "betterThird:BetterSerpent": {
