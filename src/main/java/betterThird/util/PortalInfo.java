@@ -27,8 +27,6 @@ public class PortalInfo implements Comparable<PortalInfo> {
 
         for(PortalInfo info: list){
             info.weight /= total;
-            //logger.info(info.name + ": " + info.weight + "%");
-
         }
     }
 
@@ -46,7 +44,7 @@ public class PortalInfo implements Comparable<PortalInfo> {
             currentWeight += i.weight;
         } while(roll >= currentWeight);
 
-        logger.info(i.name + "\n");
+        //logger.info(i.name + "\n");
         return i.name;
     }
 

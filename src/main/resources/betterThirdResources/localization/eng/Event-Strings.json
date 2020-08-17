@@ -43,12 +43,14 @@
       "Careful and cautious seems the better approach for reaching the top of the Spire. Ignoring the portal you continue on.",
       "You walk up to the pedestal and remove the #bcrystal. NL You quickly look over the pile of crystals, unsure of which to use. You finally select a ",
       "crystal and pop it into the slot. NL The moment the ",
-      "crystal contacts the pedestal, it @vibrates@ @rapidly,@ and you are suddenly dragged into the newly opened portal!"
+      "crystal contacts the pedestal, it @vibrates@ @rapidly,@ and you are suddenly dragged into the newly opened portal!",
+      "You pop out of the portal and look around. NL It seems you are in the same room! NL However, there is one notable difference. At the center of the room lies an ornate chest that you're sure wasn't there when you left."
     ],
     "OPTIONS": [
       "[Enter the Portal] IMMEDIATELY travel to the boss.",
       "[Swap the Crystal] ##FF0000Enter ##FF7F00a ##FFFF00different ##00FF00portal ##0000FFat ##8B00FFRandom!",
-      "[Leave]"
+      "[Leave]",
+      "[Continue]"
     ]
   },
   "betterThird:BetterScrap": {
