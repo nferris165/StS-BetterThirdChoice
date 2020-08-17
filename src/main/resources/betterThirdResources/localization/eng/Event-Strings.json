@@ -40,7 +40,10 @@
     "DESCRIPTIONS": [
       "Before you is a sight that seems out of place in the alien landscape around you. Strangely placed into one of the living walls of the Beyond is an enclosed stone entrance filled with a #p~swirling~ #p~magical~ #p~portal.~ NL NL You notice a strange #bcrystal embedded in a pedestal near the entrance, and a pile of uniquely colored crystals next to it.",
       "Jumping through the portal, your sense of time and space is completely torn apart. NL NL As you reorient yourself to the new surroundings, you realize that right before you is a fearsome battle.",
-      "Careful and cautious seems the better approach for reaching the top of the Spire. Ignoring the portal you continue on."
+      "Careful and cautious seems the better approach for reaching the top of the Spire. Ignoring the portal you continue on.",
+      "You walk up to the pedestal and remove the #bcrystal. NL You quickly look over the pile of crystals, unsure of which to use. You finally select a ",
+      "crystal and pop it into the slot. NL The moment the ",
+      "crystal contacts the pedestal, it @vibrates@ @rapidly,@ and you are suddenly dragged into the newly opened portal!"
     ],
     "OPTIONS": [
       "[Enter the Portal] IMMEDIATELY travel to the boss.",
