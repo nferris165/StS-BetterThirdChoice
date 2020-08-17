@@ -24,12 +24,14 @@ public class BetterPortalEvent extends AbstractImageEvent {
     private static final String DIALOG_2;
     private static final String DIALOG_3;
     private CurScreen screen;
-    private String optionsChosen;
 
     public BetterPortalEvent() {
         super(NAME, DESCRIPTIONS[0], IMG);
 
-        this.optionsChosen = "";
+        this.screen = CurScreen.INTRO;
+        this.imageEventText.setDialogOption(OPTIONS[0]);
+        this.imageEventText.setDialogOption(OPTIONS[1]);
+        this.imageEventText.setDialogOption(OPTIONS[2]);
 
         if(AbstractDungeon.ascensionLevel >= 15) {
         } else {
@@ -47,39 +49,47 @@ public class BetterPortalEvent extends AbstractImageEvent {
 
     @Override
     protected void buttonEffect(int buttonPressed) {
-        switch(this.screen) {// 47
+        switch(this.screen) {
             case INTRO:
-                switch(buttonPressed) {// 49
+                switch(buttonPressed) {
                     case 0:
-                        this.imageEventText.updateBodyText(DIALOG_2);// 51
-                        this.screen = CurScreen.ACCEPT;// 52
-                        logMetric("SecretPortal", "Took Portal");// 53
-                        this.imageEventText.updateDialogOption(0, OPTIONS[1]);// 54
-                        CardCrawlGame.screenShake.mildRumble(5.0F);// 55
-                        CardCrawlGame.sound.play("ATTACK_MAGIC_SLOW_2");// 56
-                        break;// 57
+                        this.imageEventText.updateBodyText(DIALOG_2);
+                        this.screen = CurScreen.ACCEPT;
+                        //logMetric("SecretPortal", "Took Portal");
+                        this.imageEventText.updateDialogOption(0, OPTIONS[2]);
+                        CardCrawlGame.screenShake.mildRumble(5.0F);
+                        CardCrawlGame.sound.play("ATTACK_MAGIC_SLOW_2");
+                        break;
                     case 1:
-                        this.imageEventText.updateBodyText(DIALOG_3);// 59
-                        this.screen = CurScreen.LEAVE;// 60
-                        logMetricIgnored("SecretPortal");// 61
-                        this.imageEventText.updateDialogOption(0, OPTIONS[1]);// 62
+                        this.imageEventText.updateBodyText("");
+                        this.screen = CurScreen.RANDOM;
+                        //logMetricIgnored("SecretPortal");
+                        this.imageEventText.updateDialogOption(0, OPTIONS[2]);
+                    case 2:
+                        this.imageEventText.updateBodyText(DIALOG_3);
+                        this.screen = CurScreen.LEAVE;
+                        //logMetricIgnored("SecretPortal");
+                        this.imageEventText.updateDialogOption(0, OPTIONS[2]);
                 }
 
-                this.imageEventText.clearRemainingOptions();// 67
-                break;// 68
+                this.imageEventText.clearRemainingOptions();
+                break;
             case ACCEPT:
-                AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMPLETE;// 71
-                MapRoomNode node = new MapRoomNode(-1, 15);// 72
-                node.room = new MonsterRoomBoss();// 73
-                AbstractDungeon.nextRoom = node;// 74
-                CardCrawlGame.music.fadeOutTempBGM();// 75
-                AbstractDungeon.pathX.add(1);// 76
-                AbstractDungeon.pathY.add(15);// 77
-                AbstractDungeon.topLevelEffects.add(new FadeWipeParticle());// 78
-                AbstractDungeon.nextRoomTransitionStart();// 79
-                break;// 80
+                AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMPLETE;
+                MapRoomNode node = new MapRoomNode(-1, 15);
+                node.room = new MonsterRoomBoss();
+                AbstractDungeon.nextRoom = node;
+                CardCrawlGame.music.fadeOutTempBGM();
+                AbstractDungeon.pathX.add(1);
+                AbstractDungeon.pathY.add(15);
+                AbstractDungeon.topLevelEffects.add(new FadeWipeParticle());
+                AbstractDungeon.nextRoomTransitionStart();
+                break;
+            case RANDOM:
+                break;
             default:
-                this.openMap();// 82
+                this.openMap();
+                break;
         }
 
     }
@@ -92,6 +102,7 @@ public class BetterPortalEvent extends AbstractImageEvent {
     private enum CurScreen {
         INTRO,
         ACCEPT,
+        RANDOM,
         LEAVE;
 
         CurScreen() {
