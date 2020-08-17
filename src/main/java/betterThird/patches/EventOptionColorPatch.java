@@ -1,6 +1,5 @@
 package betterThird.patches;
 
-import betterThird.BetterThird;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.*;
