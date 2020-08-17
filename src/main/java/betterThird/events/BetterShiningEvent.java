@@ -47,6 +47,7 @@ public class BetterShiningEvent extends AbstractImageEvent {
             this.burn.upgrade();
         } else {
             this.damage = MathUtils.round((float)AbstractDungeon.player.maxHealth * HP_LOSS_PERCENT);
+            this.card.upgrade();
         }
 
         if (AbstractDungeon.player.masterDeck.hasUpgradableCards()) {
@@ -82,9 +83,10 @@ public class BetterShiningEvent extends AbstractImageEvent {
                     String choice = "Embrace";
                     int roll = AbstractDungeon.miscRng.random(0,99);
                     if(roll < burnChance){
-                        AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(card, (float) Settings.WIDTH * 0.4F, (float)Settings.HEIGHT / 2.0F, false));
-                        AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(burn, (float)Settings.WIDTH  * 0.6F, (float)Settings.HEIGHT / 2.0F, false));
-                        this.imageEventText.updateBodyText(EMBRACE_DIALOG + BURN_DIALOG);
+                        //AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(card, (float) Settings.WIDTH * 0.4F, (float)Settings.HEIGHT / 2.0F, false));
+                        //AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(burn, (float)Settings.WIDTH  * 0.6F, (float)Settings.HEIGHT / 2.0F, false));
+                        AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(burn, (float) Settings.WIDTH * 0.5F, (float)Settings.HEIGHT / 2.0F, false));
+                        this.imageEventText.updateBodyText(BURN_DIALOG);
                         choice += " Burn";
                     }
                     else{
