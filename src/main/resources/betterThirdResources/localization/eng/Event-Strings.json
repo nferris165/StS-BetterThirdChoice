@@ -48,13 +48,18 @@
       "You walk up to the pedestal and remove the #bcrystal. NL You quickly look over the pile of crystals, unsure of which to use. You finally select a ",
       "crystal and pop it into the slot. NL The moment the ",
       "crystal contacts the pedestal, it @vibrates@ @rapidly,@ and you are suddenly dragged into the newly opened portal!",
-      "You pop out of the portal and look around. NL It seems you are in the same room! NL However, there is one notable difference. At the center of the room lies an ornate chest that you're sure wasn't there when you left."
+      "You pop out of the portal and look around. NL It seems you are in the same room! NL However, there is one notable difference. At the center of the room lies an ornate chest that you're sure wasn't there when you left.",
+      "You contemplate which portal to select."
     ],
     "OPTIONS": [
       "[Enter the Portal] IMMEDIATELY travel to the boss.",
       "[Swap the Crystal] ##FF0000Enter ##FF7F00a ##FFFF00different ##00FF00portal ##0000FFat ##8B00FFRandom!",
       "[Leave]",
-      "[Continue]"
+      "[Continue]",
+      "[Use Relic] #rLose Prismatic Shard. ##FF0000Enter ##FF7F00a ##FFFF00portal ##00FF00of ##0000FFyour ##8B00FFChoosing!",
+      "[Enter] ",
+      "Select ",
+      "portal."
     ]
   },
   "betterThird:BetterScrap": {
