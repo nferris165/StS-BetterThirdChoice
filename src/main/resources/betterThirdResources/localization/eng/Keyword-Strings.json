@@ -1,3 +1,9 @@
 [
-
+  {
+    "NAMES": [
+      "absorb",
+      "absorbs"
+    ],
+    "DESCRIPTION": "Reduce damage taken to #b0. Reduce attacker's #yStrength by #b1."
+  }
 ]
