@@ -2,6 +2,7 @@ package betterThird.patches;
 
 import betterThird.events.*;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.events.beyond.SecretPortal;
 import com.megacrit.cardcrawl.events.city.BackToBasics;
@@ -22,6 +23,14 @@ public class EventHelperPatch {
 
     public static class EventSwapPatch {
         public static AbstractEvent Postfix(AbstractEvent __result, String key){
+
+            //TODO dev stuff
+            if(AbstractDungeon.floorNum < 4 && devnest){
+                return new BetterNestEvent();
+            }
+            if(AbstractDungeon.floorNum < 4 && devslime){
+                return new BetterGoopEvent();
+            }
 
             if (__result instanceof Nest && nest) {
                 return new BetterNestEvent();

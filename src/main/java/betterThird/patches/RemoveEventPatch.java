@@ -1,15 +1,7 @@
 package betterThird.patches;
 
-import betterThird.BetterThird;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.events.beyond.SecretPortal;
-import com.megacrit.cardcrawl.events.city.BackToBasics;
-import com.megacrit.cardcrawl.events.city.Nest;
-import com.megacrit.cardcrawl.events.exordium.GoopPuddle;
-import com.megacrit.cardcrawl.events.exordium.ScrapOoze;
-import com.megacrit.cardcrawl.events.exordium.ShiningLight;
-import com.megacrit.cardcrawl.events.exordium.Sssserpent;
 import com.megacrit.cardcrawl.events.shrines.GoldShrine;
 
 @SpirePatch(

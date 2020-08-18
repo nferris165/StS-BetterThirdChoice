@@ -1,6 +1,7 @@
 package betterThird.events;
 
 import betterThird.BetterThird;
+import betterThird.patches.MaskedBanditsPatch;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.colorless.Enlightenment;
 import com.megacrit.cardcrawl.cards.curses.Doubt;
@@ -8,6 +9,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
+import com.megacrit.cardcrawl.events.shrines.GoldShrine;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.EventStrings;
 import com.megacrit.cardcrawl.vfx.RainingGoldEffect;
@@ -101,6 +103,7 @@ public class BetterSerpentEvent extends AbstractImageEvent {
                 AbstractDungeon.player.loseGold(goldCost);
                 this.imageEventText.updateBodyText(ENLIGHTEN_MSG);
                 this.imageEventText.updateDialogOption(0, OPTIONS[4]);
+                AbstractDungeon.shrineList.remove(GoldShrine.ID);
                 this.screen = CUR_SCREEN.COMPLETE;
                 break;
             default:
