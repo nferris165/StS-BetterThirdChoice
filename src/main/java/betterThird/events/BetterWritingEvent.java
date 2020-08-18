@@ -46,7 +46,7 @@ public class BetterWritingEvent extends AbstractImageEvent {
             card.upgrade();
         }
         this.watcher = AbstractDungeon.player.chosenClass == AbstractPlayer.PlayerClass.WATCHER;
-        this.defect = AbstractDungeon.player.chosenClass == AbstractPlayer.PlayerClass.DEFECT;
+        this.defect = false; //AbstractDungeon.player.chosenClass == AbstractPlayer.PlayerClass.DEFECT;
         this.cardsToRemove = new ArrayList<>();
         this.imageEventText.setDialogOption(OPTIONS[0]);
         if(watcher){
@@ -94,7 +94,7 @@ public class BetterWritingEvent extends AbstractImageEvent {
                     if(watcher){
                         removeStrikeAndDefends();
                         this.imageEventText.updateBodyText(DIALOG_5);
-                    } else if(defect && false){
+                    } else if(defect){
                         this.imageEventText.updateBodyText("get big");
                         AbstractDungeon.player.maxOrbs++;
                     } else{

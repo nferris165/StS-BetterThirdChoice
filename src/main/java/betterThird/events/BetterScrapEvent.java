@@ -29,16 +29,14 @@ public class BetterScrapEvent extends AbstractImageEvent {
     private static final String[] OPTIONS = eventStrings.OPTIONS;
     private static final String IMG = "images/events/scrapOoze.jpg";
 
-    private int relicObtainChance = 25, cardObtainChance = 30;
     private int dmg = 3;
     private int cardDmg = 3;
-    private final int DEF_REQ = 10;
+    private final int DEF_REQ = 10, RELIC_BASE_CHANCE = 25, CARD_BASE_CHANCE = 30;
     private int totalDamageDealt = 0;
+    private int relicObtainChance, cardObtainChance;
     private AbstractCard card;
-    private static final String FAIL_MSG;
-    private static final String SUCCESS_MSG;
-    private static final String ESCAPE_MSG;
-    private boolean relic, cardEarned;
+    private static final String FAIL_MSG, SUCCESS_MSG, ESCAPE_MSG, CARD_SUCCESS_MSG, SUCCESS_TEASE, FINAL_MSG;
+    private boolean relic, relic2, cardEarned, cardEarned2, defense;
     private CurScreen screen;
     private String optionsChosen;
 
@@ -46,8 +44,11 @@ public class BetterScrapEvent extends AbstractImageEvent {
         super(NAME, DESCRIPTIONS[0], IMG);
 
         this.optionsChosen = "";
-        this.relic = false;
-        this.cardEarned = false;
+        this.relic = relic2 = false;
+        this.relicObtainChance = RELIC_BASE_CHANCE;
+        this.cardObtainChance = CARD_BASE_CHANCE;
+        this.cardEarned = cardEarned2 = false;
+        this.defense = defCard();
         this.screen = CurScreen.INTRO;
         if (AbstractDungeon.ascensionLevel >= 15) {
             this.dmg = 5;
@@ -82,20 +83,50 @@ public class BetterScrapEvent extends AbstractImageEvent {
                         this.totalDamageDealt += this.dmg;
                         random = AbstractDungeon.miscRng.random(0, 99);
                         if (random >= 99 - this.relicObtainChance) {
-                            this.imageEventText.updateBodyText(SUCCESS_MSG);
-                            if(this.cardEarned){
-                                this.imageEventText.clearAllDialogs();
-                                this.imageEventText.setDialogOption(OPTIONS[3]);
-                                this.screen = CurScreen.LEAVE;
+                            if(this.defense){
+                                if(relic){
+                                    if(this.cardEarned2){
+                                        this.imageEventText.updateBodyText(SUCCESS_MSG + FINAL_MSG);
+                                        this.imageEventText.clearAllDialogs();
+                                        this.imageEventText.setDialogOption(OPTIONS[3]);
+                                        this.screen = CurScreen.LEAVE;
+                                    }
+                                    else{
+                                        this.imageEventText.updateBodyText(SUCCESS_MSG + SUCCESS_TEASE);
+                                        this.relic2 = true;
+                                        this.imageEventText.updateDialogOption(0, OPTIONS[7], true);
+                                    }
+                                    AbstractRelic r = AbstractDungeon.returnRandomScreenlessRelic(AbstractDungeon.returnRandomRelicTier());
+                                    this.optionsChosen += "Relic ";
+                                    //AbstractEvent.logMetricObtainRelicAndDamage(ID, this.optionsChosen, r, this.totalDamageDealt);
+                                    AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F, r.makeCopy());
+                                } else{
+                                    this.imageEventText.updateBodyText(SUCCESS_MSG + SUCCESS_TEASE);
+                                    this.relic = true;
+                                    this.relicObtainChance = RELIC_BASE_CHANCE;
+                                    this.imageEventText.updateDialogOption(0, OPTIONS[10] + this.dmg + OPTIONS[1] + this.relicObtainChance + OPTIONS[2]);
+                                    AbstractRelic r = AbstractDungeon.returnRandomScreenlessRelic(AbstractDungeon.returnRandomRelicTier());
+                                    this.optionsChosen += "Relic ";
+                                    //AbstractEvent.logMetricObtainRelicAndDamage(ID, this.optionsChosen, r, this.totalDamageDealt);
+                                    AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F, r.makeCopy());
+                                }
+
+                            } else{
+                                this.imageEventText.updateBodyText(SUCCESS_MSG + SUCCESS_TEASE);
+                                if(this.cardEarned){
+                                    this.imageEventText.clearAllDialogs();
+                                    this.imageEventText.setDialogOption(OPTIONS[3]);
+                                    this.screen = CurScreen.LEAVE;
+                                }
+                                else{
+                                    this.relic = true;
+                                    this.imageEventText.updateDialogOption(0, OPTIONS[8] + DEF_REQ + OPTIONS[9], true);
+                                }
+                                AbstractRelic r = AbstractDungeon.returnRandomScreenlessRelic(AbstractDungeon.returnRandomRelicTier());
+                                this.optionsChosen += "Relic ";
+                                //AbstractEvent.logMetricObtainRelicAndDamage(ID, this.optionsChosen, r, this.totalDamageDealt);
+                                AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F, r.makeCopy());
                             }
-                            else{
-                                this.relic = true;
-                                this.imageEventText.updateDialogOption(0, OPTIONS[7], true);
-                            }
-                            AbstractRelic r = AbstractDungeon.returnRandomScreenlessRelic(AbstractDungeon.returnRandomRelicTier());
-                            this.optionsChosen += "Relic ";
-                            //AbstractEvent.logMetricObtainRelicAndDamage(ID, this.optionsChosen, r, this.totalDamageDealt);
-                            AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F, r);
                         } else {
                             this.imageEventText.updateBodyText(FAIL_MSG);
                             this.relicObtainChance += 10;
@@ -110,28 +141,65 @@ public class BetterScrapEvent extends AbstractImageEvent {
                         this.totalDamageDealt += this.cardDmg;
                         random = AbstractDungeon.miscRng.random(0, 99);
                         if (random >= 99 - this.cardObtainChance) {
-                            this.imageEventText.updateBodyText(DESCRIPTIONS[4]);
-                            if(this.relic){
-                                this.imageEventText.clearAllDialogs();
-                                this.imageEventText.setDialogOption(OPTIONS[3]);
-                                this.screen = CurScreen.LEAVE;
+                            if(this.defense){
+                                if(cardEarned){
+                                    if(this.relic2){
+                                        this.imageEventText.updateBodyText(CARD_SUCCESS_MSG + FINAL_MSG);
+                                        this.imageEventText.clearAllDialogs();
+                                        this.imageEventText.setDialogOption(OPTIONS[3]);
+                                        this.screen = CurScreen.LEAVE;
+                                    }
+                                    else{
+                                        this.imageEventText.updateBodyText(CARD_SUCCESS_MSG + SUCCESS_TEASE);
+                                        this.cardEarned2 = true;
+                                        this.imageEventText.updateDialogOption(1, OPTIONS[7], true);
+                                    }
+                                    this.optionsChosen += "Card ";
+                                    //AbstractEvent.logMetricObtainCardAndDamage(ID, this.optionsChosen, this.card.makeCopy(), this.totalDamageDealt);
+                                    if(this.card.color == AbstractCard.CardColor.BLUE && AbstractDungeon.player.masterMaxOrbs == 0){
+                                        AbstractDungeon.player.masterMaxOrbs = 1;
+                                    }
+                                    AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(this.card,
+                                            (float) Settings.WIDTH * 0.3F, (float)Settings.HEIGHT / 2.0F));
+                                } else{
+                                    this.imageEventText.updateBodyText(CARD_SUCCESS_MSG + SUCCESS_TEASE);
+                                    this.cardEarned = true;
+                                    this.optionsChosen += "Card ";
+                                    //AbstractEvent.logMetricObtainCardAndDamage(ID, this.optionsChosen, this.card.makeCopy(), this.totalDamageDealt);
+                                    if(this.card.color == AbstractCard.CardColor.BLUE && AbstractDungeon.player.masterMaxOrbs == 0){
+                                        AbstractDungeon.player.masterMaxOrbs = 1;
+                                    }
+                                    AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(this.card,
+                                            (float) Settings.WIDTH * 0.3F, (float)Settings.HEIGHT / 2.0F));
+                                    this.cardObtainChance = CARD_BASE_CHANCE;
+                                    generateCard();
+                                    this.imageEventText.updateDialogOption(1,OPTIONS[10] + this.cardDmg + OPTIONS[1]
+                                            + this.cardObtainChance + OPTIONS[5] + this.card.name + OPTIONS[6], this.card);
+                                }
+                            } else{
+                                this.imageEventText.updateBodyText(CARD_SUCCESS_MSG + SUCCESS_TEASE);
+                                if(this.relic){
+                                    this.imageEventText.clearAllDialogs();
+                                    this.imageEventText.setDialogOption(OPTIONS[3]);
+                                    this.screen = CurScreen.LEAVE;
+                                }
+                                else{
+                                    this.cardEarned = true;
+                                    this.imageEventText.updateDialogOption(1, OPTIONS[8] + DEF_REQ + OPTIONS[9], true);
+                                }
+                                this.optionsChosen += "Card ";
+                                //AbstractEvent.logMetricObtainCardAndDamage(ID, this.optionsChosen, this.card.makeCopy(), this.totalDamageDealt);
+                                if(this.card.color == AbstractCard.CardColor.BLUE && AbstractDungeon.player.masterMaxOrbs == 0){
+                                    AbstractDungeon.player.masterMaxOrbs = 1;
+                                }
+                                AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(this.card,
+                                        (float) Settings.WIDTH * 0.3F, (float)Settings.HEIGHT / 2.0F));
                             }
-                            else{
-                                this.cardEarned = true;
-                                this.imageEventText.updateDialogOption(1, OPTIONS[7], true);
-                            }
-                            this.optionsChosen += "Card ";
-                            //AbstractEvent.logMetricObtainCardAndDamage(ID, this.optionsChosen, this.card.makeCopy(), this.totalDamageDealt);
-                            if(this.card.color == AbstractCard.CardColor.BLUE && AbstractDungeon.player.masterMaxOrbs == 0){
-                                AbstractDungeon.player.masterMaxOrbs = 1;
-                            }
-                            AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(this.card,
-                                    (float) Settings.WIDTH * 0.3F, (float)Settings.HEIGHT / 2.0F));
                         } else {
                             this.imageEventText.updateBodyText(FAIL_MSG);
                             this.cardObtainChance += 10;
                             ++this.cardDmg;
-                            this.imageEventText.updateDialogOption(1,OPTIONS[0] + this.cardDmg + OPTIONS[1]
+                            this.imageEventText.updateDialogOption(1,OPTIONS[4] + this.cardDmg + OPTIONS[1]
                                     + this.cardObtainChance + OPTIONS[5] + this.card.name + OPTIONS[6], this.card);
                         }
 
@@ -202,6 +270,15 @@ public class BetterScrapEvent extends AbstractImageEvent {
 
     }
 
+    private boolean defCard(){
+        for(AbstractCard c: AbstractDungeon.player.masterDeck.group){
+            if(c.baseBlock >= DEF_REQ){
+                return true;
+            }
+        }
+        return false;
+    }
+
     private ArrayList<String> addExclusions(){
         ArrayList<String> exclude = new ArrayList<>();
 
@@ -230,6 +307,9 @@ public class BetterScrapEvent extends AbstractImageEvent {
         FAIL_MSG = DESCRIPTIONS[1];
         SUCCESS_MSG = DESCRIPTIONS[2];
         ESCAPE_MSG = DESCRIPTIONS[3];
+        CARD_SUCCESS_MSG = DESCRIPTIONS[4];
+        SUCCESS_TEASE = DESCRIPTIONS[5];
+        FINAL_MSG = DESCRIPTIONS[6];
     }
 
     private enum CurScreen {

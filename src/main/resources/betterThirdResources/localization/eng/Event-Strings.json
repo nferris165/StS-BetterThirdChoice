@@ -57,10 +57,12 @@
     "NAME": "Better Scrap Ooze",
     "DESCRIPTIONS": [
       "As you walk into the room you hear a ~gurgling~ and the @grinding@ of metals. Before you is a slime-like creature that ate too much scrap for its own good. From the center of the creature you see glints of strange light, perhaps something magical? It looks like you can get some #ytreasure if you just reach inside its... opening. However, the acid and sharp objects may #rhurt.",
-      "#r@Ouch!@ NL All you find is corroded metal and a bit of #r@burning@ #r@pain.@ NL However, you're still convinced there's a #yrelic...",
+      "#r@Ouch!@ NL All you find is corroded metal and a bit of #r@burning@ #r@pain.@ NL However, you're still convinced there's a #ytreasure...",
       "#gSuccess! NL After rummaging through the metal and burning acid, you finally grab hold of a #yrelic and yank it out. NL You pull your way out of the ooze #rdamaged but rewarded.",
       "You decide to leave the area. NL The slime pays no attention, content with its meal.",
-      "#gSuccess! NL After rummaging through the metal and burning acid, you finally grab hold of a #ycard and yank it out. NL You pull your way out of the ooze #rdamaged but rewarded."
+      "#gSuccess! NL After rummaging through the metal and burning acid, you finally grab hold of a #ycard and yank it out. NL You pull your way out of the ooze #rdamaged but rewarded.",
+      " NL NL You think you can make out another #ytreasure even deeper in the Ooze, but you might not be able delve that deep.",
+      " NL NL You think you've finally gotten everything. Surprisingly, the creature seems grateful to you for removing the sources of pain, gurgling in a manner which you interpret to mean \"Thanks, rigid thing!\""
     ],
     "OPTIONS": [
       "[Reach Inside] #rLose #r",
@@ -70,9 +72,10 @@
       "[Deeper] #rLose #r",
       "%: #gFind ",
       ".",
-      "[Locked] Already obtained.",
+      "[Locked] Nothing left.",
       "[Locked] Requires: Card with ",
-      " or more defense."
+      " or more defense.",
+      "[Even Deeper?] #rLose #r"
     ]
   },
   "betterThird:BetterSerpent": {
