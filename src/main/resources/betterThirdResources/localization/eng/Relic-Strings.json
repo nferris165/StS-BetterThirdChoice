@@ -4,10 +4,18 @@
     "FLAVOR": "Is this what enlightenment feels like?",
     "DESCRIPTIONS": [
       "Start each combat with #b",
-      " Ritual. Start each combat with a full hand of Madness instead of drawing normally.",
+      " #yRitual. Start each combat with a full hand of Madness instead of drawing normally.",
       "@CAW!@ NL @CAAAW@",
       "~CAW~ ~CAAW~ NL @CAAAAAWWW!@",
       "@MURDER!!@ @MURDER@ NL @MURDER!!@"
+    ]
+  },
+  "betterThird:SlimedRelic": {
+    "NAME": "Slime Mask",
+    "FLAVOR": "Things tend to get stuck in here.",
+    "DESCRIPTIONS": [
+      "Start each combat with [#98FB98]",
+      ". Dodge every 5th attack."
     ]
   }
 }

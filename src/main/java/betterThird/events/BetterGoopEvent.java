@@ -1,12 +1,12 @@
 package betterThird.events;
 
 import betterThird.BetterThird;
+import betterThird.relics.SlimedRelic;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.localization.EventStrings;
 import com.megacrit.cardcrawl.vfx.RainingGoldEffect;
@@ -22,79 +22,88 @@ public class BetterGoopEvent extends AbstractImageEvent {
     private static final String[] OPTIONS = eventStrings.OPTIONS;
     private static final String IMG = "images/events/goopPuddle.jpg";
 
-    private static final String GOLD_DIALOG;
-    private static final String LEAVE_DIALOG;
+    private static final String GOLD_DIALOG, LEAVE_DIALOG, RELIC_DIALOG;
     private CurScreen screen;
     private int damage;
     private int gold;
     private int goldLoss;
-    private String optionsChosen;
 
     public BetterGoopEvent() {
         super(NAME, DESCRIPTIONS[0], IMG);
 
-        this.optionsChosen = "";
         this.screen = CurScreen.INTRO;
-        this.damage = 11;// 27
-        this.gold = 75;// 28
-        if (AbstractDungeon.ascensionLevel >= 15) {// 38
-            this.goldLoss = AbstractDungeon.miscRng.random(35, 75);// 39
+        this.damage = 11;
+        this.gold = 75;
+        if (AbstractDungeon.ascensionLevel >= 15) {
+            this.goldLoss = AbstractDungeon.miscRng.random(35, 75);
         } else {
-            this.goldLoss = AbstractDungeon.miscRng.random(20, 50);// 41
+            this.goldLoss = AbstractDungeon.miscRng.random(20, 50);
         }
 
-        if (this.goldLoss > AbstractDungeon.player.gold) {// 44
-            this.goldLoss = AbstractDungeon.player.gold;// 45
+        if (this.goldLoss > AbstractDungeon.player.gold) {
+            this.goldLoss = AbstractDungeon.player.gold;
         }
 
-        this.imageEventText.setDialogOption(OPTIONS[0] + this.gold + OPTIONS[1] + this.damage + OPTIONS[2]);// 47
+        this.imageEventText.setDialogOption(OPTIONS[0] + this.gold + OPTIONS[1] + this.damage + OPTIONS[2]);
+        this.imageEventText.setDialogOption(OPTIONS[6] + this.goldLoss + OPTIONS[4] + OPTIONS[7] + this.damage + OPTIONS[8], new SlimedRelic());
         this.imageEventText.setDialogOption(OPTIONS[3] + this.goldLoss + OPTIONS[4]);
 
     }
 
     @Override
     public void onEnterRoom() {
-        if (Settings.AMBIANCE_ON) {// 53
-            CardCrawlGame.sound.play("EVENT_SPIRITS");// 54
+        if (Settings.AMBIANCE_ON) {
+            CardCrawlGame.sound.play("EVENT_SPIRITS");
         }
-
     }
 
     @Override
     protected void buttonEffect(int buttonPressed) {
-        switch(this.screen) {// 60
+        switch(this.screen) {
             case INTRO:
-                switch(buttonPressed) {// 62
+                switch(buttonPressed) {
                     case 0:
-                        this.imageEventText.updateBodyText(GOLD_DIALOG);// 64
-                        this.imageEventText.clearAllDialogs();// 65
-                        AbstractDungeon.player.damage(new DamageInfo(AbstractDungeon.player, this.damage));// 66
-                        AbstractDungeon.effectList.add(new FlashAtkImgEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, AbstractGameAction.AttackEffect.FIRE));// 67
-                        AbstractDungeon.effectList.add(new RainingGoldEffect(this.gold));// 72
-                        AbstractDungeon.player.gainGold(this.gold);// 73
-                        this.imageEventText.setDialogOption(OPTIONS[5]);// 74
-                        this.screen = CurScreen.RESULT;// 75
-                        AbstractEvent.logMetricGainGoldAndDamage("World of Goop", "Gather Gold", this.gold, this.damage);// 76
-                        return;// 92
+                        this.imageEventText.updateBodyText(GOLD_DIALOG);
+                        this.imageEventText.clearAllDialogs();
+                        AbstractDungeon.player.damage(new DamageInfo(AbstractDungeon.player, this.damage));
+                        AbstractDungeon.effectList.add(new FlashAtkImgEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, AbstractGameAction.AttackEffect.FIRE));
+                        AbstractDungeon.effectList.add(new RainingGoldEffect(this.gold));
+                        AbstractDungeon.player.gainGold(this.gold);
+                        this.imageEventText.setDialogOption(OPTIONS[5]);
+                        this.screen = CurScreen.RESULT;
+                        //logMetricGainGoldAndDamage(ID, "Gather Gold", this.gold, this.damage);
+                        return;
                     case 1:
-                        this.imageEventText.updateBodyText(LEAVE_DIALOG);// 79
-                        AbstractDungeon.player.loseGold(this.goldLoss);// 80
-                        this.imageEventText.clearAllDialogs();// 81
-                        this.imageEventText.setDialogOption(OPTIONS[5]);// 82
-                        this.screen = CurScreen.RESULT;// 83
-                        logMetricLoseGold("World of Goop", "Left Gold", this.goldLoss);// 84
+                        this.imageEventText.updateBodyText(RELIC_DIALOG);
+                        AbstractDungeon.player.loseGold(this.goldLoss);
+                        AbstractDungeon.player.damage(new DamageInfo(AbstractDungeon.player, this.damage));
+                        AbstractDungeon.effectList.add(new FlashAtkImgEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, AbstractGameAction.AttackEffect.FIRE));
+                        AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float) (Settings.WIDTH / 2), (float) (Settings.HEIGHT / 2), new SlimedRelic());
+                        this.imageEventText.clearAllDialogs();
+                        this.imageEventText.setDialogOption(OPTIONS[5]);
+                        this.screen = CurScreen.RESULT;
+                        //logMetricLoseGold(ID, "Left Gold", this.goldLoss);
+                        return;
+                    case 2:
+                        this.imageEventText.updateBodyText(LEAVE_DIALOG);
+                        AbstractDungeon.player.loseGold(this.goldLoss);
+                        this.imageEventText.clearAllDialogs();
+                        this.imageEventText.setDialogOption(OPTIONS[5]);
+                        this.screen = CurScreen.RESULT;
+                        //logMetricLoseGold(ID, "Left Gold", this.goldLoss);
                         return;
                     default:
                         return;
                 }
             default:
-                this.openMap();// 89
+                this.openMap();
         }
     }
 
     static {
         GOLD_DIALOG = DESCRIPTIONS[1];
         LEAVE_DIALOG = DESCRIPTIONS[2];
+        RELIC_DIALOG = DESCRIPTIONS[3];
     }
 
     private enum CurScreen {

@@ -7,6 +7,7 @@ import basemod.ReflectionHacks;
 import basemod.helpers.RelicType;
 import basemod.interfaces.*;
 import betterThird.relics.NestCultRelic;
+import betterThird.relics.SlimedRelic;
 import betterThird.util.TextureLoader;
 import betterThird.util.customMetrics;
 import com.badlogic.gdx.Gdx;
@@ -169,7 +170,7 @@ public class BetterThird implements
     @Override
     public void receiveEditRelics() {
         BaseMod.addRelic(new NestCultRelic(), RelicType.SHARED);
-        //BaseMod.addRelic();
+        BaseMod.addRelic(new SlimedRelic(), RelicType.SHARED);
     }
 
     @Override
