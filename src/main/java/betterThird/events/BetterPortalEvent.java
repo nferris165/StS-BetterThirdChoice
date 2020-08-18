@@ -91,7 +91,7 @@ public class BetterPortalEvent extends AbstractImageEvent {
                     case 0:
                         this.imageEventText.updateBodyText(DIALOG_2);
                         this.screen = CurScreen.ACCEPT;
-                        //logMetric("SecretPortal", "Took Portal");
+                        logMetric(ID, "Portal");
                         this.imageEventText.updateDialogOption(0, OPTIONS[2]);
                         CardCrawlGame.screenShake.mildRumble(5.0F);
                         CardCrawlGame.sound.play("ATTACK_MAGIC_SLOW_2");
@@ -99,13 +99,13 @@ public class BetterPortalEvent extends AbstractImageEvent {
                     case 1:
                         this.imageEventText.updateBodyText(DIALOG_4 + color + DIALOG_41 + color + DIALOG_42);
                         this.screen = CurScreen.RANDOM;
-                        //logMetricIgnored("SecretPortal");
+                        CardCrawlGame.screenShake.mildRumble(5.0F);
                         this.imageEventText.updateDialogOption(0, OPTIONS[3]);
                         break;
                     case 2:
                         this.imageEventText.updateBodyText(DIALOG_3);
                         this.screen = CurScreen.LEAVE;
-                        //logMetricIgnored("SecretPortal");
+                        logMetricIgnored(ID);
                         this.imageEventText.updateDialogOption(0, OPTIONS[2]);
                         break;
                 }
@@ -136,6 +136,8 @@ public class BetterPortalEvent extends AbstractImageEvent {
     }
 
     private void portalAction(){
+        //TODO readable?
+        logMetric(ID, color);
         switch(color){
             case "[#FF0000]":   //Red
                 this.imageEventText.updateBodyText(DIALOG_5);
@@ -144,6 +146,7 @@ public class BetterPortalEvent extends AbstractImageEvent {
                 this.imageEventText.updateDialogOption(0, OPTIONS[3]);
                 break;
             case "[#FF7F00]":   //Orange
+
                 eventTransition(GremlinMatchGame.ID);
                 break;
             case "[#FFFF00]":   //Yellow

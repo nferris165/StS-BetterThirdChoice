@@ -98,7 +98,6 @@ public class BetterScrapEvent extends AbstractImageEvent {
                                     }
                                     AbstractRelic r = AbstractDungeon.returnRandomScreenlessRelic(AbstractDungeon.returnRandomRelicTier());
                                     this.optionsChosen += "Relic ";
-                                    //AbstractEvent.logMetricObtainRelicAndDamage(ID, this.optionsChosen, r, this.totalDamageDealt);
                                     AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F, r.makeCopy());
                                 } else{
                                     this.imageEventText.updateBodyText(SUCCESS_MSG + SUCCESS_TEASE);
@@ -107,7 +106,6 @@ public class BetterScrapEvent extends AbstractImageEvent {
                                     this.imageEventText.updateDialogOption(0, OPTIONS[10] + this.dmg + OPTIONS[1] + this.relicObtainChance + OPTIONS[2]);
                                     AbstractRelic r = AbstractDungeon.returnRandomScreenlessRelic(AbstractDungeon.returnRandomRelicTier());
                                     this.optionsChosen += "Relic ";
-                                    //AbstractEvent.logMetricObtainRelicAndDamage(ID, this.optionsChosen, r, this.totalDamageDealt);
                                     AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F, r.makeCopy());
                                 }
 
@@ -124,7 +122,6 @@ public class BetterScrapEvent extends AbstractImageEvent {
                                 }
                                 AbstractRelic r = AbstractDungeon.returnRandomScreenlessRelic(AbstractDungeon.returnRandomRelicTier());
                                 this.optionsChosen += "Relic ";
-                                //AbstractEvent.logMetricObtainRelicAndDamage(ID, this.optionsChosen, r, this.totalDamageDealt);
                                 AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F, r.makeCopy());
                             }
                         } else {
@@ -155,7 +152,6 @@ public class BetterScrapEvent extends AbstractImageEvent {
                                         this.imageEventText.updateDialogOption(1, OPTIONS[7], true);
                                     }
                                     this.optionsChosen += "Card ";
-                                    //AbstractEvent.logMetricObtainCardAndDamage(ID, this.optionsChosen, this.card.makeCopy(), this.totalDamageDealt);
                                     if(this.card.color == AbstractCard.CardColor.BLUE && AbstractDungeon.player.masterMaxOrbs == 0){
                                         AbstractDungeon.player.masterMaxOrbs = 1;
                                     }
@@ -165,7 +161,6 @@ public class BetterScrapEvent extends AbstractImageEvent {
                                     this.imageEventText.updateBodyText(CARD_SUCCESS_MSG + SUCCESS_TEASE);
                                     this.cardEarned = true;
                                     this.optionsChosen += "Card ";
-                                    //AbstractEvent.logMetricObtainCardAndDamage(ID, this.optionsChosen, this.card.makeCopy(), this.totalDamageDealt);
                                     if(this.card.color == AbstractCard.CardColor.BLUE && AbstractDungeon.player.masterMaxOrbs == 0){
                                         AbstractDungeon.player.masterMaxOrbs = 1;
                                     }
@@ -188,7 +183,6 @@ public class BetterScrapEvent extends AbstractImageEvent {
                                     this.imageEventText.updateDialogOption(1, OPTIONS[8] + DEF_REQ + OPTIONS[9], true);
                                 }
                                 this.optionsChosen += "Card ";
-                                //AbstractEvent.logMetricObtainCardAndDamage(ID, this.optionsChosen, this.card.makeCopy(), this.totalDamageDealt);
                                 if(this.card.color == AbstractCard.CardColor.BLUE && AbstractDungeon.player.masterMaxOrbs == 0){
                                     AbstractDungeon.player.masterMaxOrbs = 1;
                                 }
@@ -208,7 +202,7 @@ public class BetterScrapEvent extends AbstractImageEvent {
                         if(this.optionsChosen.isEmpty()){
                             this.optionsChosen = "LEAVE";
                         }
-                        //AbstractEvent.logMetricTakeDamage(ID, this.optionsChosen, this.totalDamageDealt);
+                        AbstractEvent.logMetricTakeDamage(ID, this.optionsChosen, this.totalDamageDealt);
                         this.imageEventText.updateBodyText(ESCAPE_MSG);
                         this.imageEventText.clearAllDialogs();
                         this.imageEventText.setDialogOption(OPTIONS[3]);

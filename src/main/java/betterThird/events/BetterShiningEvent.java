@@ -96,13 +96,13 @@ public class BetterShiningEvent extends AbstractImageEvent {
                     this.imageEventText.clearAllDialogs();
                     this.imageEventText.setDialogOption(OPTIONS[2]);
                     this.screen = CUR_SCREEN.COMPLETE;
-                    //logMetric(ID, choice);
+                    logMetric(ID, choice);
                 } else if (buttonPressed == 2){
                     this.imageEventText.updateBodyText(DISAGREE_DIALOG);
                     this.imageEventText.clearAllDialogs();
                     this.imageEventText.setDialogOption(OPTIONS[2]);
                     this.screen = CUR_SCREEN.COMPLETE;
-                    //logMetricIgnored(ID);
+                    logMetricIgnored(ID);
                 }
                 break;
             default:
@@ -143,7 +143,7 @@ public class BetterShiningEvent extends AbstractImageEvent {
             }
         }
 
-        //logMetric(ID, "Upgrade", null, null, null, cardMetrics, null, null, null, this.damage, 0, 0, 0, 0, 0);
+        logMetric(ID, "Upgrade", null, null, null, cardMetrics, null, null, null, this.damage, 0, 0, 0, 0, 0);
     }
 
     static {

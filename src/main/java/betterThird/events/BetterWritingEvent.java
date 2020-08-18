@@ -72,7 +72,7 @@ public class BetterWritingEvent extends AbstractImageEvent {
         if (!AbstractDungeon.gridSelectScreen.selectedCards.isEmpty()) {
             AbstractCard c = AbstractDungeon.gridSelectScreen.selectedCards.get(0);
             AbstractDungeon.effectList.add(new PurgeCardEffect(c));
-            //logMetricCardRemoval(ID, "Elegance", c);
+            logMetricCardRemoval(ID, "Elegance", c);
             AbstractDungeon.player.masterDeck.removeCard(c);
             AbstractDungeon.gridSelectScreen.selectedCards.remove(c);
         }
@@ -101,7 +101,7 @@ public class BetterWritingEvent extends AbstractImageEvent {
                         if(relic){
                             AbstractDungeon.player.getRelic(ArtOfWar.ID).flash();
                         }
-                        //logMetricObtainCardAndDamage(ID, "Insight", card, relic?1:0); // saved relic status as damage taken
+                        logMetricObtainCardAndDamage(ID, "Insight", card, relic?1:0); // saved relic status as damage taken
                         AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(this.card, (float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F));
                         this.imageEventText.updateBodyText(DIALOG_4);
                     }
@@ -134,7 +134,7 @@ public class BetterWritingEvent extends AbstractImageEvent {
             AbstractCard c;
             do {
                 if(!var1.hasNext()) {
-                    //logMetricMaxHPLoss(ID, "Simplicity", count); //card count saved as max hp lost
+                    logMetricMaxHPLoss(ID, "Simplicity", count); //card count saved as max hp lost
                     return;
                 }
 
@@ -157,7 +157,7 @@ public class BetterWritingEvent extends AbstractImageEvent {
                 cardsToRemove.add(c);
             }
         }
-        //logMetricHeal(ID, "Materialism", cardsToRemove.size()); //card count saved as healing
+        logMetricHeal(ID, "Materialism", cardsToRemove.size()); //card count saved as healing
         for(AbstractCard c: cardsToRemove){
             AbstractDungeon.effectList.add(new ShowCardBrieflyEffect(c.makeStatEquivalentCopy(),
                     MathUtils.random(0.1F, 0.9F) * (float)Settings.WIDTH,

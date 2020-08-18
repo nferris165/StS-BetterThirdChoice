@@ -79,11 +79,11 @@ public class BetterSerpentEvent extends AbstractImageEvent {
                     this.imageEventText.removeDialogOption(1);
                     this.imageEventText.updateDialogOption(0, OPTIONS[4]);
                     this.screen = CUR_SCREEN.COMPLETE;
-                    //logMetricIgnored(ID);
+                    logMetricIgnored(ID);
                 }
                 break;
             case AGREE:
-                //logMetricGainGoldAndCard(ID, "AGREE", this.curse, this.goldReward);
+                logMetricGainGoldAndCard(ID, "AGREE", this.curse, this.goldReward);
                 AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(this.curse, (float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F));
                 AbstractDungeon.effectList.add(new RainingGoldEffect(this.goldReward));
                 AbstractDungeon.player.gainGold(this.goldReward);
@@ -94,9 +94,9 @@ public class BetterSerpentEvent extends AbstractImageEvent {
             case DISAGREE:
                 List<String> tempList = new ArrayList<>();
                 tempList.add(this.card.cardID);
-//                logMetric(ID, "RENOUNCE", tempList, null, null,
-//                        null, null, null, null, 0,
-//                        0, 0, 0, 0, this.goldCost);
+                logMetric(ID, "RENOUNCE", tempList, null, null,
+                        null, null, null, null, 0,
+                        0, 0, 0, 0, this.goldCost);
                 AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(this.card, (float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F));
                 AbstractDungeon.player.loseGold(goldCost);
                 this.imageEventText.updateBodyText(ENLIGHTEN_MSG);

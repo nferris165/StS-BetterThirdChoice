@@ -59,7 +59,7 @@ public class BetterNestEvent extends AbstractImageEvent {
             case RESULT:
                 switch(buttonPressed) {
                     case 0:
-                        //logMetricGainGold(ID, "Steal", this.goldGain);
+                        logMetricGainGold(ID, "Steal", this.goldGain);
                         this.imageEventText.updateBodyText(EXIT_BODY);
                         this.screen = CurScreen.LEAVE;
                         AbstractDungeon.effectList.add(new RainingGoldEffect(this.goldGain));
@@ -69,7 +69,7 @@ public class BetterNestEvent extends AbstractImageEvent {
                         return;
                     case 1:
                         AbstractCard c = new RitualDagger();
-                        //logMetricObtainCardAndDamage(ID, "Dagger", c, HP_LOSS);
+                        logMetricObtainCardAndDamage(ID, "Dagger", c, HP_LOSS);
                         this.imageEventText.updateBodyText(ACCEPT_BODY);
                         AbstractDungeon.player.damage(new DamageInfo(null, HP_LOSS));
                         AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(c, (float) Settings.WIDTH * 0.3F, (float)Settings.HEIGHT / 2.0F));
@@ -79,7 +79,7 @@ public class BetterNestEvent extends AbstractImageEvent {
                         return;
                     case 2:
                         AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float) (Settings.WIDTH / 2), (float) (Settings.HEIGHT / 2), new NestCultRelic());
-                        //logMetricObtainRelic(ID, "Madness", new NestCultRelic());
+                        logMetricObtainRelic(ID, "Madness", new NestCultRelic());
                         this.imageEventText.updateBodyText(JOIN_BODY);
                         this.screen = CurScreen.LEAVE;
                         this.imageEventText.updateDialogOption(0, OPTIONS[4]);
