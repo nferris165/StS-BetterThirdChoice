@@ -22,7 +22,7 @@
   "betterThird:BetterGoop": {
     "NAME": "Better World of Goop",
     "DESCRIPTIONS": [
-      "You fall into a puddle. NL @IT'S@ @MADE@ @OF@ #g@SLIME@ #g@GOOP!!@ NL Frantically, you claw yourself out over several minutes as you feel the goop starting to burn. NL You can feel goop in your ears, goop in your nose, goop everywhere. NL NL Climbing out, you notice that some of your #ygold is missing. Looking back to the puddle you see your missing coins combined with #ygold from unfortunate adventurers mixed together in the puddle.",
+      "You fall into a puddle. NL @IT'S@ @MADE@ @OF@ #g@SLIME@ #g@GOOP!!@ NL Frantically, you claw yourself out over several minutes as you feel the goop starting to burn. NL NL Climbing out, you notice that some of your #ygold is missing. Looking back to the puddle you see other unfortunate adventurers mixed together in the puddle. Perhaps you can find something on them?",
       "Feeling the sting of the goop as the prolonged exposure starts to melt away at your skin, you manage to fish out the #ygold.",
       "You decide that mess is not worth it.",
       "Feeling the sting of the goop as the prolonged exposure starts to melt away at your skin, you manage to fish out the #yrelic."
@@ -34,7 +34,7 @@
       "[Leave It] #rLose #r",
       " #rGold.",
       "[Leave]",
-      "[Gather Gold] #rLose #r",
+      "[Search] #rLose #r",
       " #rLose #r",
       " #rHP. #gObtain ##98FB98Slime ##98FB98Relic."
     ]
@@ -114,7 +114,8 @@
       "You reach carefully into the light. NL It's #r@scorching@ #r@hot@ ! However, the pain quickly recedes. NL You feel somehow healthier, faster, and stronger than you've ever felt before.",
       "You walk around it, wondering what could have been.",
       "As you walk through the light, you notice that the light is absorbed into you. NL You feel the light surround you, penetrate you, binding you to some greater #bForce.",
-      "OUCH! You reel back in pain, having been burned by the intense #rheat. NL NL What did you think would happen?"
+      "OUCH! You reel back in pain, having been burned by the intense #rheat. NL NL What did you think would happen?",
+      "You slowly approach the light, holding your protective #pcharm in front of you. It ~buckles~ as you enter, but holds steady. NL The moment you fully enter the light, your charm @shatters@ and you feel the light enveloping you. You have no choice but to continue forward. NL "
     ],
     "OPTIONS": [
       "[Touch] #gUpgrade #g2 #grandom #gcards. #rLose #r",
@@ -123,7 +124,9 @@
       "[Locked] Requires: Upgradeable Cards",
       "[Enter] #g25%: #gObtain ##D4AF37",
       ". #r",
-      "%: #rReceive #rBurn."
+      "%: #rReceive #rBurn.",
+      "[Protection] #gObtain ##D4AF37",
+      ". #rLose Dream Catcher."
     ]
   },
   "betterThird:BetterWriting": {

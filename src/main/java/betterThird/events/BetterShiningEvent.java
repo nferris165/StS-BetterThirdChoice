@@ -12,6 +12,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.localization.EventStrings;
+import com.megacrit.cardcrawl.relics.DreamCatcher;
 import com.megacrit.cardcrawl.vfx.UpgradeShineEffect;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardBrieflyEffect;
@@ -31,9 +32,10 @@ public class BetterShiningEvent extends AbstractImageEvent {
     private static final String[] OPTIONS = eventStrings.OPTIONS;
     private static final String IMG = "images/events/shiningLight.jpg";
 
-    private static final String AGREE_DIALOG, EMBRACE_DIALOG, DISAGREE_DIALOG, BURN_DIALOG;
+    private static final String AGREE_DIALOG, EMBRACE_DIALOG, DISAGREE_DIALOG, BURN_DIALOG, PROTECT_DIALOG;
     private int damage, burnChance;
     private AbstractCard card, burn;
+    private boolean dreamcatcher;
     private static final float HP_LOSS_PERCENT = 0.2F;
     private static final float A_2_HP_LOSS_PERCENT = 0.3F;
     private CUR_SCREEN screen;
@@ -43,6 +45,7 @@ public class BetterShiningEvent extends AbstractImageEvent {
 
         this.card = new Apotheosis();
         this.burn = new Burn();
+        this.dreamcatcher = AbstractDungeon.player.hasRelic(DreamCatcher.ID);
         this.burnChance = 75;
         this.screen = CUR_SCREEN.INTRO;
         if (AbstractDungeon.ascensionLevel >= 15) {
@@ -60,6 +63,9 @@ public class BetterShiningEvent extends AbstractImageEvent {
         }
 
         this.imageEventText.setDialogOption(OPTIONS[4] + this.card + OPTIONS[5] + this.burnChance + OPTIONS[6], this.card);
+        if(dreamcatcher){
+            this.imageEventText.setDialogOption(OPTIONS[7] + this.card + OPTIONS[8], this.card);
+        }
         this.imageEventText.setDialogOption(OPTIONS[2]);
     }
 
@@ -101,6 +107,22 @@ public class BetterShiningEvent extends AbstractImageEvent {
                     this.screen = CUR_SCREEN.COMPLETE;
                     logMetric(ID, choice);
                 } else if (buttonPressed == 2){
+                    if(dreamcatcher){
+                        AbstractDungeon.player.loseRelic(AbstractDungeon.player.getRelic(DreamCatcher.ID).relicId);
+                        this.imageEventText.updateBodyText(PROTECT_DIALOG + EMBRACE_DIALOG);
+                        this.imageEventText.clearAllDialogs();
+                        this.imageEventText.setDialogOption(OPTIONS[2]);
+                        this.screen = CUR_SCREEN.COMPLETE;
+                        logMetric(ID, "Protect");
+                        AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(card, (float) Settings.WIDTH * 0.5F, (float)Settings.HEIGHT / 2.0F, false));
+                    } else{
+                        this.imageEventText.updateBodyText(DISAGREE_DIALOG);
+                        this.imageEventText.clearAllDialogs();
+                        this.imageEventText.setDialogOption(OPTIONS[2]);
+                        this.screen = CUR_SCREEN.COMPLETE;
+                        logMetricIgnored(ID);
+                    }
+                } else if (buttonPressed == 3){
                     this.imageEventText.updateBodyText(DISAGREE_DIALOG);
                     this.imageEventText.clearAllDialogs();
                     this.imageEventText.setDialogOption(OPTIONS[2]);
@@ -154,6 +176,7 @@ public class BetterShiningEvent extends AbstractImageEvent {
         DISAGREE_DIALOG = DESCRIPTIONS[2];
         EMBRACE_DIALOG = DESCRIPTIONS[3];
         BURN_DIALOG = DESCRIPTIONS[4];
+        PROTECT_DIALOG = DESCRIPTIONS[5];
     }
 
     private enum CUR_SCREEN {

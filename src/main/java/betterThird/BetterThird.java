@@ -338,8 +338,6 @@ public class BetterThird implements
         BaseMod.registerModBadge(badgeTexture, MODNAME, AUTHOR, DESCRIPTION, settingsPanel);
 
         //events
-//        BaseMod.addEvent(new AddEventParams.Builder(BetterThirdEvent.ID, BetterThirdEvent.class)
-//                .eventType(EventUtils.EventType.SHRINE).create());
 
         //audio
         loadAudio();
