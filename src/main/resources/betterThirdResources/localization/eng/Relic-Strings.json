@@ -15,7 +15,7 @@
     "FLAVOR": "Things tend to get stuck in here.",
     "DESCRIPTIONS": [
       "Start each combat with two [#98FB98]",
-      ". Every 5th attack received, #ybetterthird:Absorb that attack."
+      ". Every #b6th non-zero attack received, #ybetterthird:Absorb that attack."
     ]
   }
 }

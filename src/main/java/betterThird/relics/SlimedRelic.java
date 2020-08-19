@@ -26,6 +26,8 @@ public class SlimedRelic extends CustomRelic implements OnLoseBlockRelic {
     private static final Texture IMG = TextureLoader.getTexture(makeRelicPath("Slimed.png"));
     private static final Texture OUTLINE = TextureLoader.getTexture(makeRelicOutlinePath("Slimed.png"));
 
+    private final int COUNT = 5;
+
 
     public SlimedRelic() {
         super(ID, IMG, OUTLINE, RelicTier.SPECIAL, LandingSound.MAGICAL);
@@ -35,25 +37,27 @@ public class SlimedRelic extends CustomRelic implements OnLoseBlockRelic {
 
     @Override
     public void atBattleStart() {
-        this.counter = 0;
+        if(this.counter == COUNT){
+            this.beginLongPulse();
+        }
         AbstractDungeon.actionManager.addToBottom(new MakeTempCardInDiscardAction(new Slimed(), 1));
         AbstractDungeon.actionManager.addToBottom(new MakeTempCardInDrawPileAction(new Slimed(), 1, true, false, false));
     }
 
     @Override
     public int onAttacked(DamageInfo info, int damageAmount) {
-        if (info.owner != null && info.type != DamageInfo.DamageType.HP_LOSS && info.type != DamageInfo.DamageType.THORNS && damageAmount > 1) {
-            if(this.counter == 4){
+        if (info.owner != null && info.type != DamageInfo.DamageType.HP_LOSS && info.type != DamageInfo.DamageType.THORNS && damageAmount > 0) {
+            if(this.counter == COUNT){
                 this.stopPulse();
                 this.flash();
                 this.addToBot(new RelicAboveCreatureAction(AbstractDungeon.player, this));
-                AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(info.owner, info.owner, new StrengthPower(info.owner, -1)));
+                AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(info.owner, info.owner, new StrengthPower(info.owner, -1)));
                 this.counter = 0;
                 return 0;
             }
             else{
                 this.counter++;
-                if(this.counter == 4){
+                if(this.counter == COUNT){
                     this.beginLongPulse();
                 }
                 return damageAmount;
@@ -66,31 +70,28 @@ public class SlimedRelic extends CustomRelic implements OnLoseBlockRelic {
 
     @Override
     public int onLoseBlock(DamageInfo info, int damageAmount) {
-        if (info.owner != null && info.type != DamageInfo.DamageType.HP_LOSS && info.type != DamageInfo.DamageType.THORNS && damageAmount <= AbstractDungeon.player.currentBlock) {
-            if(this.counter == 4){
+        if (info.owner != null && info.type != DamageInfo.DamageType.HP_LOSS && info.type != DamageInfo.DamageType.THORNS && damageAmount > 0) {
+            if(this.counter == COUNT){
                 this.stopPulse();
                 this.flash();
                 this.addToBot(new RelicAboveCreatureAction(AbstractDungeon.player, this));
-                AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(info.owner, info.owner, new StrengthPower(info.owner, -1)));
+                AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(info.owner, info.owner, new StrengthPower(info.owner, -1)));
                 this.counter = 0;
                 return 0;
             }
             else{
                 this.counter++;
-                if(this.counter == 4){
+                if(this.counter == COUNT){
                     this.beginLongPulse();
                 }
                 return damageAmount;
             }
-
-        } else {
-            return damageAmount;
         }
+        return damageAmount;
     }
 
     @Override
     public void onVictory() {
-        this.counter = 0;
         this.stopPulse();
     }
 
