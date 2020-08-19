@@ -4,6 +4,7 @@ import basemod.CustomEventRoom;
 import betterThird.BetterThird;
 import betterThird.util.PortalInfo;
 import betterThird.util.PortalTreasureRoom;
+import com.megacrit.cardcrawl.actions.GameActionManager;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -39,11 +40,13 @@ public class BetterPortalEvent extends AbstractImageEvent {
     private boolean prism;
     private CurScreen screen;
     private static ArrayList<PortalInfo> portals = new ArrayList<>();
+    private String optionsChosen;
 
 
     public BetterPortalEvent() {
         super(NAME, DESCRIPTIONS[0], IMG);
 
+        this.optionsChosen = "";
         this.screen = CurScreen.INTRO;
         this.prism = AbstractDungeon.player.hasRelic(PrismaticShard.ID);
         generatePortal();
@@ -67,6 +70,7 @@ public class BetterPortalEvent extends AbstractImageEvent {
         portals.add(new PortalInfo("[#8B00FF]", 0.6F)); //Violet
         PortalInfo.normalizeWeights(portals);
         color = PortalInfo.roll(portals, AbstractDungeon.miscRng.random());
+        //color = "[#FF0000]";
     }
 
     @Override
@@ -93,6 +97,7 @@ public class BetterPortalEvent extends AbstractImageEvent {
                         break;
                     case 1:
                         if(prism){
+                            this.optionsChosen += "Chosen: ";
                             this.imageEventText.updateBodyText(DIALOG_CHOICE);
                             this.screen = CurScreen.CHOICE;
                             this.imageEventText.clearAllDialogs();
@@ -103,6 +108,7 @@ public class BetterPortalEvent extends AbstractImageEvent {
                             this.imageEventText.setDialogOption(OPTIONS[5] + "##0000FF" + OPTIONS[6] + "##0000FF" + OPTIONS[7]);
                             this.imageEventText.setDialogOption(OPTIONS[5] + "##8B00FF" + OPTIONS[6] + "##8B00FF" + OPTIONS[7]);
                         } else{
+                            this.optionsChosen += "Random: ";
                             this.imageEventText.updateBodyText(DIALOG_4 + color + DIALOG_41 + color + DIALOG_42);
                             this.screen = CurScreen.RANDOM;
                             CardCrawlGame.screenShake.mildRumble(5.0F);
@@ -176,31 +182,30 @@ public class BetterPortalEvent extends AbstractImageEvent {
     private void portalAction(){
         switch(color){
             case "[#FF0000]":   //Red
-                logMetric(ID, "Random: Red");
+                logMetric(ID, this.optionsChosen + "Red");
                 this.imageEventText.updateBodyText(DIALOG_5);
                 this.screen = CurScreen.RED;
-                //logMetricIgnored("SecretPortal");
                 this.imageEventText.updateDialogOption(0, OPTIONS[3]);
                 this.imageEventText.clearRemainingOptions();
                 break;
             case "[#FF7F00]":   //Orange
-                logMetric(ID, "Random: Orange");
+                logMetric(ID, this.optionsChosen + "Orange");
                 eventTransition(GremlinMatchGame.ID);
                 break;
             case "[#FFFF00]":   //Yellow
-                logMetric(ID, "Random: Yellow");
+                logMetric(ID, this.optionsChosen + "Yellow");
                 eventTransition(NoteForYourself.ID);
                 break;
             case "[#00FF00]":   //Green
-                logMetric(ID, "Random: Green");
+                logMetric(ID, this.optionsChosen + "Green");
                 eventTransition(KnowingSkull.ID);
                 break;
             case "[#0000FF]":   //Blue
-                logMetric(ID, "Random: Blue");
+                logMetric(ID, this.optionsChosen + "Blue");
                 eventTransition(SensoryStone.ID);
                 break;
             case "[#8B00FF]":   //Violet
-                logMetric(ID, "Random: Violet");
+                logMetric(ID, this.optionsChosen + "Violet");
                 eventTransition(ForgottenAltar.ID);
                 break;
             default:
@@ -214,6 +219,7 @@ public class BetterPortalEvent extends AbstractImageEvent {
         MapRoomNode cur = AbstractDungeon.currMapNode;
         MapRoomNode node = new MapRoomNode(cur.x, cur.y);
         node.room = new PortalTreasureRoom();
+        AbstractDungeon.actionManager.phase = GameActionManager.Phase.WAITING_ON_USER;
         node.room.phase = AbstractRoom.RoomPhase.INCOMPLETE;
         ArrayList<MapEdge> curEdges = cur.getEdges();
 

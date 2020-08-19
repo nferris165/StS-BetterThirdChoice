@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.relics.MercuryHourglass;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rewards.chests.AbstractChest;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
 
 public class PortalChest extends AbstractChest {
@@ -25,6 +26,7 @@ public class PortalChest extends AbstractChest {
 
     @Override
     public void open(boolean bossChest) {
+        AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMPLETE;
         AbstractDungeon.overlayMenu.proceedButton.setLabel(TEXT[0]);
 
         for(AbstractRelic r: AbstractDungeon.player.relics ){
