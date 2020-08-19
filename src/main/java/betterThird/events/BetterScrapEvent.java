@@ -9,7 +9,6 @@ import com.megacrit.cardcrawl.cards.purple.*;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.EventStrings;
@@ -41,11 +40,13 @@ public class BetterScrapEvent extends AbstractImageEvent {
     private boolean relic, relic2, cardEarned, cardEarned2, defense;
     private CurScreen screen;
     private String optionsChosen;
+    private ArrayList<String> cardsOffered;
 
     public BetterScrapEvent() {
         super(NAME, DESCRIPTIONS[0], IMG);
 
         this.optionsChosen = "";
+        this.cardsOffered = new ArrayList<>();
         this.relic = relic2 = false;
         this.relicObtainChance = RELIC_BASE_CHANCE;
         this.cardObtainChance = CARD_BASE_CHANCE;
@@ -204,7 +205,10 @@ public class BetterScrapEvent extends AbstractImageEvent {
                         if(this.optionsChosen.isEmpty()){
                             this.optionsChosen = "LEAVE";
                         }
-                        AbstractEvent.logMetricTakeDamage(ID, this.optionsChosen, this.totalDamageDealt);
+                        logMetric(ID, this.optionsChosen, this.cardsOffered, null, null,
+                                null, null, null, null, this.totalDamageDealt,
+                                0, 0, 0, defense?1:0, 0);
+
                         this.imageEventText.updateBodyText(ESCAPE_MSG);
                         this.imageEventText.clearAllDialogs();
                         this.imageEventText.setDialogOption(OPTIONS[3]);
@@ -288,7 +292,7 @@ public class BetterScrapEvent extends AbstractImageEvent {
         }
         Collections.shuffle(cardPool, AbstractDungeon.miscRng.random);
         this.card = cardPool.get(0);
-
+        this.cardsOffered.add(this.card.cardID);
     }
 
     private boolean defCard(){

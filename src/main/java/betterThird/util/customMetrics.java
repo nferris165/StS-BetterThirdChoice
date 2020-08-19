@@ -212,25 +212,27 @@ public class customMetrics implements Runnable {
         for(HashMap map : CardCrawlGame.metricData.event_choices){
             if(map.get("event_name").equals(BetterGoopEvent.ID)){
                 foundEvent = true;
-                addData("goop_choice", map);
+                addData("bettergoop", map);
             } else if(map.get("event_name").equals(BetterNestEvent.ID)){
                 foundEvent = true;
-                addData("nest_choice", map);
+                addData("betternest", map);
             } else if(map.get("event_name").equals(BetterPortalEvent.ID)){
                 foundEvent = true;
-                addData("portal_choice", map);
+                addData("betterportal", map);
             } else if(map.get("event_name").equals(BetterScrapEvent.ID)){
                 foundEvent = true;
-                addData("scrap_choice", map);
+                addData("betterscrap", map);
             } else if(map.get("event_name").equals(BetterSerpentEvent.ID)){
                 foundEvent = true;
-                addData("serpent_choice", map);
+                addData("betterserpent", map);
             } else if(map.get("event_name").equals(BetterShiningEvent.ID)){
                 foundEvent = true;
-                addData("shining_choice", map);
+                addData("bettershining", map);
             } else if(map.get("event_name").equals(BetterWritingEvent.ID)){
                 foundEvent = true;
-                addData("writing_event", map);
+                addData("betterwriting", map);
+            } else if(map.get("event_name").equals("BanditSerpent")){       //Serpent Interaction with Bandits
+                addData("bandit_serpent", true);
             }
 
         }

@@ -25,17 +25,17 @@
       "You fall into a puddle. NL @IT'S@ @MADE@ @OF@ #g@SLIME@ #g@GOOP!!@ NL Frantically, you claw yourself out over several minutes as you feel the goop starting to burn. NL NL Climbing out, you notice that some of your #ygold is missing. Looking back to the puddle you see other unfortunate adventurers mixed together in the puddle. Perhaps you can find something on them?",
       "Feeling the sting of the goop as the prolonged exposure starts to melt away at your skin, you manage to fish out the #ygold.",
       "You decide that mess is not worth it.",
-      "Feeling the sting of the goop as the prolonged exposure starts to melt away at your skin, you manage to fish out the #yrelic.",
+      "Feeling the sting of the goop as the prolonged exposure starts to melt away at your skin, but you manage to find a curious [#98FB98]relic[] in one adventurer's pack.",
       "You fall into a puddle. NL @IT'S@ @MADE@ @OF@ #g@SLIME@ #g@GOOP!!@ NL Frantically, you claw yourself out over several minutes as you feel the goop starting to burn. NL NL Luckily, your Bag of Preparation kept your belongings secure. Looking back to the puddle you see other unfortunate adventurers mixed together in the puddle. Perhaps you can find something on them?"
     ],
     "OPTIONS": [
       "[Gather Gold] #gGain #g",
       " #gGold. #rLose #r",
       " #rHP.",
-      "[Leave It] #rLose #r",
+      "[Leave] #rLose #r",
       " #rGold.",
       "[Leave]",
-      "[Search] #rLose #r",
+      "[Search Adventurers] #rLose #r",
       " #rLose #r",
       " #rHP. #gObtain ##98FB98Slime ##98FB98Relic."
     ]

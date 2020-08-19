@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.cards.colorless.Enlightenment;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.events.city.MaskedBandits;
 import com.megacrit.cardcrawl.localization.EventStrings;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
@@ -63,6 +64,7 @@ public class MaskedBanditsPatch {
 
         public static SpireReturn Prefix(MaskedBandits __instance, int buttonPressed){
             if(ReflectionHacks.getPrivate(__instance,MaskedBandits.class,"screen") == null){
+                AbstractEvent.logMetric("BanditSerpent", "Serpent");
                 AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMPLETE;
                 AbstractDungeon.dungeonMapScreen.open(false);
                 return SpireReturn.Return(null);
@@ -86,7 +88,7 @@ public class MaskedBanditsPatch {
                 }
                 else{
                     __instance.roomEventText.clear();
-                    __instance.roomEventText.addDialogOption(OPTIONS[1] + OPTIONS[2], card);
+                    __instance.roomEventText.addDialogOption(OPTIONS[1] + OPTIONS[2], card.makeStatEquivalentCopy());
                     __instance.roomEventText.addDialogOption(OPTIONS[3]);
                 }
             }
