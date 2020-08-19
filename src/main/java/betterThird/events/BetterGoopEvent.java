@@ -81,7 +81,9 @@ public class BetterGoopEvent extends AbstractImageEvent {
                         AbstractDungeon.player.gainGold(this.gold);
                         this.imageEventText.setDialogOption(OPTIONS[5]);
                         this.screen = CurScreen.RESULT;
-                        logMetricGainGoldAndDamage(ID, "Gold", this.gold, this.damage);
+                        logMetric(ID, "Gold", null, null, null,
+                                null, null, null, null,
+                                this.damage, 0, 0, bag?1:0, this.gold, 0);
                         return;
                     case 1:
                         this.imageEventText.updateBodyText(RELIC_DIALOG);
@@ -94,7 +96,7 @@ public class BetterGoopEvent extends AbstractImageEvent {
                         this.screen = CurScreen.RESULT;
                         logMetric(ID, "Slimed", null, null, null,
                                 null, null, null, null,
-                                this.damage, 0, 0, 0, 0, this.goldLoss);
+                                this.damage, 0, 0, bag?1:0, 0, this.goldLoss);
                         return;
                     case 2:
                         this.imageEventText.updateBodyText(LEAVE_DIALOG);
@@ -102,7 +104,9 @@ public class BetterGoopEvent extends AbstractImageEvent {
                         this.imageEventText.clearAllDialogs();
                         this.imageEventText.setDialogOption(OPTIONS[5]);
                         this.screen = CurScreen.RESULT;
-                        logMetricLoseGold(ID, "Left", this.goldLoss);
+                        logMetric(ID, "Left", null, null, null,
+                                null, null, null, null,
+                                0, 0, 0, bag?1:0, 0, this.goldLoss);
                         return;
                     default:
                         return;

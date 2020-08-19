@@ -33,7 +33,7 @@ public class BetterShiningEvent extends AbstractImageEvent {
     private static final String IMG = "images/events/shiningLight.jpg";
 
     private static final String AGREE_DIALOG, EMBRACE_DIALOG, DISAGREE_DIALOG, BURN_DIALOG, PROTECT_DIALOG;
-    private int damage, burnChance;
+    private int damage, burnChance, startHP, maxHP;
     private AbstractCard card, burn;
     private boolean dreamcatcher;
     private static final float HP_LOSS_PERCENT = 0.2F;
@@ -47,6 +47,8 @@ public class BetterShiningEvent extends AbstractImageEvent {
         this.burn = new Burn();
         this.dreamcatcher = AbstractDungeon.player.hasRelic(DreamCatcher.ID);
         this.burnChance = 75;
+        this.startHP = AbstractDungeon.player.currentHealth;
+        this.maxHP = AbstractDungeon.player.maxHealth;
         this.screen = CUR_SCREEN.INTRO;
         if (AbstractDungeon.ascensionLevel >= 15) {
             this.damage = MathUtils.round((float)AbstractDungeon.player.maxHealth * A_2_HP_LOSS_PERCENT);
@@ -105,7 +107,9 @@ public class BetterShiningEvent extends AbstractImageEvent {
                     this.imageEventText.clearAllDialogs();
                     this.imageEventText.setDialogOption(OPTIONS[2]);
                     this.screen = CUR_SCREEN.COMPLETE;
-                    logMetric(ID, choice);
+                    logMetric(ID, choice, null, null, null,
+                            null, null, null, null, 0,
+                            startHP, maxHP, 0, 0, dreamcatcher?1:0);
                 } else if (buttonPressed == 2){
                     if(dreamcatcher){
                         AbstractDungeon.player.loseRelic(AbstractDungeon.player.getRelic(DreamCatcher.ID).relicId);
@@ -113,21 +117,28 @@ public class BetterShiningEvent extends AbstractImageEvent {
                         this.imageEventText.clearAllDialogs();
                         this.imageEventText.setDialogOption(OPTIONS[2]);
                         this.screen = CUR_SCREEN.COMPLETE;
-                        logMetric(ID, "Protect");
+                        logMetric(ID, "Protect", null, null, null,
+                                null, null, null, null, 0,
+                                startHP, maxHP, 0, 0, dreamcatcher?1:0);
                         AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(card, (float) Settings.WIDTH * 0.5F, (float)Settings.HEIGHT / 2.0F, false));
                     } else{
                         this.imageEventText.updateBodyText(DISAGREE_DIALOG);
                         this.imageEventText.clearAllDialogs();
                         this.imageEventText.setDialogOption(OPTIONS[2]);
                         this.screen = CUR_SCREEN.COMPLETE;
-                        logMetricIgnored(ID);
+                        logMetric(ID, "Leave", null, null, null,
+                                null, null, null, null, 0,
+                                startHP, maxHP, 0, 0, dreamcatcher?1:0);
                     }
                 } else if (buttonPressed == 3){
                     this.imageEventText.updateBodyText(DISAGREE_DIALOG);
                     this.imageEventText.clearAllDialogs();
                     this.imageEventText.setDialogOption(OPTIONS[2]);
                     this.screen = CUR_SCREEN.COMPLETE;
-                    logMetricIgnored(ID);
+                    logMetric(ID, "Leave", null, null, null,
+                            null, null, null, null, 0,
+                            startHP, maxHP, 0, 0, dreamcatcher?1:0);
+
                 }
                 break;
             default:
@@ -167,8 +178,9 @@ public class BetterShiningEvent extends AbstractImageEvent {
                         (float)Settings.WIDTH / 2.0F + 190.0F * Settings.scale, (float)Settings.HEIGHT / 2.0F));
             }
         }
-
-        logMetric(ID, "Upgrade", null, null, null, cardMetrics, null, null, null, this.damage, 0, 0, 0, 0, 0);
+        logMetric(ID, "Upgrade", null, null, null,
+                cardMetrics, null, null, null, this.damage,
+                startHP, maxHP, 0, 0, dreamcatcher?1:0);
     }
 
     static {

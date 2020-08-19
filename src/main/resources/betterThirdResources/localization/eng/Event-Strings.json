@@ -137,7 +137,8 @@
       "The answer was elegance. NL Of course.",
       "The truth is always simple.",
       "Aha! It is all becoming clear now.",
-      "You realize that your possessions are merely weighing you down."
+      "You realize that your possessions are merely weighing you down.",
+      "The older designs were always more efficient."
     ],
     "OPTIONS": [
       "[Elegance] #gRemove #ga #gcard #gfrom #gyour #gdeck.",
@@ -145,7 +146,8 @@
       "Select a Card to Remove.",
       "[Leave]",
       "[Insight] #gObtain ##ee82ee",
-      "[Materialism] #gRemove #gall #gStrikes #gand #gDefends."
+      "[Materialism] #gRemove #gall #gStrikes #gand #gDefends.",
+      "[Adaptability] #gGain #g1 #gMax #gOrb #gslot."
     ]
   },
   "betterThird:Bandits": {

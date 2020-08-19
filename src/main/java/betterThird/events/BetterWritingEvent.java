@@ -29,7 +29,7 @@ public class BetterWritingEvent extends AbstractImageEvent {
     private static final String[] OPTIONS = eventStrings.OPTIONS;
     private static final String IMG = "images/events/backToBasics.jpg";
 
-    private static final String DIALOG_2, DIALOG_3, DIALOG_4, DIALOG_5;
+    private static final String DIALOG_2, DIALOG_3, DIALOG_4, DIALOG_5, DIALOG_DEFECT;
     private CUR_SCREEN screen;
     private ArrayList<AbstractCard> cardsToRemove;
     private AbstractCard card;
@@ -46,13 +46,13 @@ public class BetterWritingEvent extends AbstractImageEvent {
             card.upgrade();
         }
         this.watcher = AbstractDungeon.player.chosenClass == AbstractPlayer.PlayerClass.WATCHER;
-        this.defect = false; //AbstractDungeon.player.chosenClass == AbstractPlayer.PlayerClass.DEFECT;
+        this.defect = AbstractDungeon.player.chosenClass == AbstractPlayer.PlayerClass.DEFECT;
         this.cardsToRemove = new ArrayList<>();
         this.imageEventText.setDialogOption(OPTIONS[0]);
         if(watcher){
             this.imageEventText.setDialogOption(OPTIONS[5]);
         } else if(defect){
-            this.imageEventText.setDialogOption("[upgrade]");
+            this.imageEventText.setDialogOption(OPTIONS[6]);
         } else{
             this.imageEventText.setDialogOption(OPTIONS[4] + card.name + ".", card);
         }
@@ -95,8 +95,9 @@ public class BetterWritingEvent extends AbstractImageEvent {
                         removeStrikeAndDefends();
                         this.imageEventText.updateBodyText(DIALOG_5);
                     } else if(defect){
-                        this.imageEventText.updateBodyText("get big");
-                        AbstractDungeon.player.maxOrbs++;
+                        this.imageEventText.updateBodyText(DIALOG_DEFECT);
+                        logMetric(ID, "Adaptability");
+                        AbstractDungeon.player.masterMaxOrbs++;
                     } else{
                         if(relic){
                             AbstractDungeon.player.getRelic(ArtOfWar.ID).flash();
@@ -157,7 +158,7 @@ public class BetterWritingEvent extends AbstractImageEvent {
                 cardsToRemove.add(c);
             }
         }
-        logMetricHeal(ID, "Materialism", cardsToRemove.size()); //card count saved as healing
+        logMetricMaxHPLoss(ID, "Materialism", cardsToRemove.size()); //card count saved as max hp lost
         for(AbstractCard c: cardsToRemove){
             AbstractDungeon.effectList.add(new ShowCardBrieflyEffect(c.makeStatEquivalentCopy(),
                     MathUtils.random(0.1F, 0.9F) * (float)Settings.WIDTH,
@@ -171,6 +172,7 @@ public class BetterWritingEvent extends AbstractImageEvent {
         DIALOG_3 = DESCRIPTIONS[2];
         DIALOG_4 = DESCRIPTIONS[3];
         DIALOG_5 = DESCRIPTIONS[4];
+        DIALOG_DEFECT = DESCRIPTIONS[5];
     }
 
     private enum CUR_SCREEN {
