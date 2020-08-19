@@ -59,10 +59,6 @@ public class BetterThird implements
     public static boolean shining = true;
     private static final String writing_settings = "writing";
     public static boolean writing = true;
-    private static final String devslime_settings = "devslime";
-    public static boolean devslime = true;
-    private static final String devnest_settings = "devnest";
-    public static boolean devnest = true;
 
     private static final String MODNAME = "Better Third";
     private static final String AUTHOR = "Nichilas";
@@ -124,8 +120,6 @@ public class BetterThird implements
         defaultSettings.setProperty(serpent_settings, "TRUE");
         defaultSettings.setProperty(shining_settings, "TRUE");
         defaultSettings.setProperty(writing_settings, "TRUE");
-        defaultSettings.setProperty(devslime_settings, "FALSE");
-        defaultSettings.setProperty(devnest_settings, "FALSE");
 
         try {
             SpireConfig config = new SpireConfig("betterThird", "betterThirdConfig", defaultSettings);
@@ -137,8 +131,6 @@ public class BetterThird implements
             serpent = config.getBool(serpent_settings);
             shining = config.getBool(shining_settings);
             writing = config.getBool(writing_settings);
-            devslime = config.getBool(devslime_settings);
-            devnest = config.getBool(devnest_settings);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -336,43 +328,6 @@ public class BetterThird implements
                     }
                 });
 
-        //TODO dev options
-
-        ModLabeledToggleButton devslimeButton = new ModLabeledToggleButton("DEV: Start with Slime Mask.",
-                350.0f, 400.0f, Settings.CREAM_COLOR, FontHelper.charDescFont,
-                devslime,
-                settingsPanel,
-                (label) -> {},
-                (button) -> {
-
-                    devslime = button.enabled;
-                    try {
-                        SpireConfig config = new SpireConfig("betterThird", "betterThirdConfig", defaultSettings);
-                        config.setBool(devslime_settings, devslime);
-                        config.save();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                });
-
-        ModLabeledToggleButton devnestButton = new ModLabeledToggleButton("DEV: Start with Ritual Mask",
-                350.0f, 350.0f, Settings.CREAM_COLOR, FontHelper.charDescFont,
-                devnest,
-                settingsPanel,
-                (label) -> {},
-                (button) -> {
-
-                    devnest = button.enabled;
-                    try {
-                        SpireConfig config = new SpireConfig("betterThird", "betterThirdConfig", defaultSettings);
-                        config.setBool(devnest_settings, devnest);
-                        config.save();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                });
-
-
         settingsPanel.addUIElement(goopButton);
         settingsPanel.addUIElement(nestButton);
         settingsPanel.addUIElement(portalButton);
@@ -380,8 +335,6 @@ public class BetterThird implements
         settingsPanel.addUIElement(serpentButton);
         settingsPanel.addUIElement(shiningButton);
         settingsPanel.addUIElement(writingButton);
-        settingsPanel.addUIElement(devslimeButton);
-        settingsPanel.addUIElement(devnestButton);
         BaseMod.registerModBadge(badgeTexture, MODNAME, AUTHOR, DESCRIPTION, settingsPanel);
 
         //events
