@@ -3,18 +3,21 @@ package betterThird.relics;
 import basemod.abstracts.CustomRelic;
 import betterThird.BetterThird;
 import betterThird.util.TextureLoader;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.evacipated.cardcrawl.mod.stslib.relics.OnLoseBlockRelic;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDiscardAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
+import com.megacrit.cardcrawl.actions.utility.TextAboveCreatureAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.cards.status.Slimed;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.powers.StrengthPower;
+import com.megacrit.cardcrawl.vfx.TextAboveCreatureEffect;
 
 import static betterThird.BetterThird.makeRelicOutlinePath;
 import static betterThird.BetterThird.makeRelicPath;
@@ -50,7 +53,8 @@ public class SlimedRelic extends CustomRelic implements OnLoseBlockRelic {
             if(this.counter == COUNT){
                 this.stopPulse();
                 this.flash();
-                this.addToBot(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+                this.addToTop(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+                AbstractDungeon.effectList.add(new TextAboveCreatureEffect(AbstractDungeon.player.hb.cX - AbstractDungeon.player.animX, AbstractDungeon.player.hb.cY + AbstractDungeon.player.hb.height / 2.0F, "Absorbed!", Color.LIME));
                 AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(info.owner, info.owner, new StrengthPower(info.owner, -1)));
                 this.counter = 0;
                 return 0;
@@ -74,7 +78,8 @@ public class SlimedRelic extends CustomRelic implements OnLoseBlockRelic {
             if(this.counter == COUNT){
                 this.stopPulse();
                 this.flash();
-                this.addToBot(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+                this.addToTop(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+                AbstractDungeon.effectList.add(new TextAboveCreatureEffect(AbstractDungeon.player.hb.cX - AbstractDungeon.player.animX, AbstractDungeon.player.hb.cY + AbstractDungeon.player.hb.height / 2.0F, "Absorbed!", Color.LIME));
                 AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(info.owner, info.owner, new StrengthPower(info.owner, -1)));
                 this.counter = 0;
                 return 0;
