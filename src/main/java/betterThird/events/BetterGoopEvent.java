@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.localization.EventStrings;
+import com.megacrit.cardcrawl.relics.BagOfPreparation;
 import com.megacrit.cardcrawl.vfx.RainingGoldEffect;
 import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 
@@ -24,11 +25,12 @@ public class BetterGoopEvent extends AbstractImageEvent {
     private static final String[] OPTIONS = eventStrings.OPTIONS;
     private static final String IMG = "images/events/goopPuddle.jpg";
 
-    private static final String GOLD_DIALOG, LEAVE_DIALOG, RELIC_DIALOG;
+    private static final String GOLD_DIALOG, LEAVE_DIALOG, RELIC_DIALOG, BAG_INTRO;
     private CurScreen screen;
     private int damage;
     private int gold;
     private int goldLoss;
+    private boolean bag;
 
     public BetterGoopEvent() {
         super(NAME, DESCRIPTIONS[0], IMG);
@@ -36,10 +38,16 @@ public class BetterGoopEvent extends AbstractImageEvent {
         this.screen = CurScreen.INTRO;
         this.damage = 11;
         this.gold = 75;
+        this.bag = AbstractDungeon.player.hasRelic(BagOfPreparation.ID);
         if (AbstractDungeon.ascensionLevel >= 15) {
             this.goldLoss = AbstractDungeon.miscRng.random(35, 75);
         } else {
             this.goldLoss = AbstractDungeon.miscRng.random(20, 50);
+        }
+
+        if(this.bag){
+            this.goldLoss = 0;
+            this.body = BAG_INTRO;
         }
 
         if (this.goldLoss > AbstractDungeon.player.gold) {
@@ -108,6 +116,7 @@ public class BetterGoopEvent extends AbstractImageEvent {
         GOLD_DIALOG = DESCRIPTIONS[1];
         LEAVE_DIALOG = DESCRIPTIONS[2];
         RELIC_DIALOG = DESCRIPTIONS[3];
+        BAG_INTRO = DESCRIPTIONS[4];
     }
 
     private enum CurScreen {

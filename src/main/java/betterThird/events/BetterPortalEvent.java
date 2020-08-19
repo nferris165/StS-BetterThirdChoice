@@ -18,7 +18,6 @@ import com.megacrit.cardcrawl.localization.EventStrings;
 import com.megacrit.cardcrawl.map.MapEdge;
 import com.megacrit.cardcrawl.map.MapRoomNode;
 import com.megacrit.cardcrawl.relics.PrismaticShard;
-import com.megacrit.cardcrawl.rewards.chests.AbstractChest;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
 import com.megacrit.cardcrawl.vfx.FadeWipeParticle;
@@ -39,7 +38,6 @@ public class BetterPortalEvent extends AbstractImageEvent {
     private static String color;
     private boolean prism;
     private CurScreen screen;
-    public AbstractChest chest;
     private static ArrayList<PortalInfo> portals = new ArrayList<>();
 
 

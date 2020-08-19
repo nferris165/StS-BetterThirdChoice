@@ -136,7 +136,7 @@ public class customMetrics implements Runnable {
 
 
         //addData("event_choices", CardCrawlGame.metricData.event_choices);
-        addData("enabled_events", getDisabledEvents());
+        addData("disabled_events", getDisabledEvents());
 
         addData("mods", getModList());
     }

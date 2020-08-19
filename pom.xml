@@ -6,7 +6,7 @@
 
     <groupId>betterThirdChoice</groupId>
     <artifactId>betterThirdChoice</artifactId>
-    <version>0.5</version>
+    <version>0.9</version>
     <name>betterThird</name>
     <description>Adds a third dynamic option to various two option events!</description>
 

@@ -19,6 +19,8 @@ import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.relicRng;
+
 public class BetterScrapEvent extends AbstractImageEvent {
 
     public static final String ID = BetterThird.makeID("BetterScrap");
@@ -30,7 +32,7 @@ public class BetterScrapEvent extends AbstractImageEvent {
     private static final String IMG = "images/events/scrapOoze.jpg";
 
     private int dmg = 3;
-    private int cardDmg = 3;
+    private int cardDmg = 2;
     private final int DEF_REQ = 10, RELIC_BASE_CHANCE = 25, CARD_BASE_CHANCE = 30;
     private int totalDamageDealt = 0;
     private int relicObtainChance, cardObtainChance;
@@ -52,7 +54,7 @@ public class BetterScrapEvent extends AbstractImageEvent {
         this.screen = CurScreen.INTRO;
         if (AbstractDungeon.ascensionLevel >= 15) {
             this.dmg = 5;
-            this.cardDmg = 4;
+            this.cardDmg = 3;
         }
 
         generateCard();
@@ -96,21 +98,22 @@ public class BetterScrapEvent extends AbstractImageEvent {
                                         this.relic2 = true;
                                         this.imageEventText.updateDialogOption(0, OPTIONS[7], true);
                                     }
-                                    AbstractRelic r = AbstractDungeon.returnRandomScreenlessRelic(AbstractDungeon.returnRandomRelicTier());
+                                    AbstractRelic r = AbstractDungeon.returnRandomScreenlessRelic(returnRandomRelicTier());
                                     this.optionsChosen += "Relic ";
                                     AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F, r.makeCopy());
                                 } else{
                                     this.imageEventText.updateBodyText(SUCCESS_MSG + SUCCESS_TEASE);
+                                    AbstractRelic r = AbstractDungeon.returnRandomScreenlessRelic(returnRandomRelicTier());
                                     this.relic = true;
                                     this.relicObtainChance = RELIC_BASE_CHANCE;
                                     this.imageEventText.updateDialogOption(0, OPTIONS[10] + this.dmg + OPTIONS[1] + this.relicObtainChance + OPTIONS[2]);
-                                    AbstractRelic r = AbstractDungeon.returnRandomScreenlessRelic(AbstractDungeon.returnRandomRelicTier());
                                     this.optionsChosen += "Relic ";
                                     AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F, r.makeCopy());
                                 }
 
                             } else{
                                 this.imageEventText.updateBodyText(SUCCESS_MSG + SUCCESS_TEASE);
+                                AbstractRelic r = AbstractDungeon.returnRandomScreenlessRelic(returnRandomRelicTier());
                                 if(this.cardEarned){
                                     this.imageEventText.clearAllDialogs();
                                     this.imageEventText.setDialogOption(OPTIONS[3]);
@@ -120,7 +123,6 @@ public class BetterScrapEvent extends AbstractImageEvent {
                                     this.relic = true;
                                     this.imageEventText.updateDialogOption(0, OPTIONS[8] + DEF_REQ + OPTIONS[9], true);
                                 }
-                                AbstractRelic r = AbstractDungeon.returnRandomScreenlessRelic(AbstractDungeon.returnRandomRelicTier());
                                 this.optionsChosen += "Relic ";
                                 AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F, r.makeCopy());
                             }
@@ -215,7 +217,24 @@ public class BetterScrapEvent extends AbstractImageEvent {
             case LEAVE:
                 this.openMap();
         }
+    }
 
+    private AbstractRelic.RelicTier returnRandomRelicTier() {
+        int roll = relicRng.random(0, 99);
+        //BetterThird.logger.info(roll + "\n\n");
+        if(relic){
+            if (roll < 20) {
+                return AbstractRelic.RelicTier.COMMON;
+            } else {
+                return roll < 20 + 50 ? AbstractRelic.RelicTier.UNCOMMON : AbstractRelic.RelicTier.RARE;
+            }
+        } else{
+            if (roll < 75) {
+                return AbstractRelic.RelicTier.COMMON;
+            } else {
+                return roll < 75 + 15 ? AbstractRelic.RelicTier.UNCOMMON : AbstractRelic.RelicTier.RARE;
+            }
+        }
     }
 
     private void generateCard(){
@@ -254,8 +273,16 @@ public class BetterScrapEvent extends AbstractImageEvent {
 
         for(AbstractCard c: tmpPool){
             if(c.rarity != AbstractCard.CardRarity.COMMON){
-                if(!exclude.contains(c.cardID)){
-                    cardPool.add(c.makeCopy());
+                if(cardEarned){
+                    if(c.rarity != AbstractCard.CardRarity.UNCOMMON){
+                        if(!exclude.contains(c.cardID)){
+                            cardPool.add(c.makeCopy());
+                        }
+                    }
+                } else{
+                    if(!exclude.contains(c.cardID)){
+                        cardPool.add(c.makeCopy());
+                    }
                 }
             }
         }
