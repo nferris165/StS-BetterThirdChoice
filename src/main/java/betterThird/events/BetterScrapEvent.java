@@ -32,7 +32,7 @@ public class BetterScrapEvent extends AbstractImageEvent {
 
     private int dmg = 3;
     private int cardDmg = 2;
-    private final int DEF_REQ = 10, RELIC_BASE_CHANCE = 25, CARD_BASE_CHANCE = 30;
+    private final int DEF_REQ = 10, RELIC_BASE_CHANCE = 25, CARD_BASE_CHANCE = 35;
     private int totalDamageDealt = 0;
     private int relicObtainChance, cardObtainChance;
     private AbstractCard card;

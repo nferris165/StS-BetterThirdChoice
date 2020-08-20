@@ -85,7 +85,7 @@ public class BetterSerpentEvent extends AbstractImageEvent {
                 }
                 break;
             case AGREE:
-                logMetricGainGoldAndDamage(ID, "AGREE", this.goldCost, this.goldReward); //current gold stored as damage
+                logMetricGainGoldAndDamage(ID, "AGREE", this.goldReward, this.goldCost); //current gold stored as damage
                 AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(this.curse, (float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F));
                 AbstractDungeon.effectList.add(new RainingGoldEffect(this.goldReward));
                 AbstractDungeon.player.gainGold(this.goldReward);
