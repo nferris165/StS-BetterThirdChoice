@@ -83,7 +83,7 @@ public class SlimedRelic extends CustomRelic implements OnLoseBlockRelic {
                 this.counter = 0;
                 return 0;
             }
-            else{
+            else if(damageAmount <= AbstractDungeon.player.currentBlock){
                 this.counter++;
                 if(this.counter == COUNT){
                     this.beginLongPulse();
