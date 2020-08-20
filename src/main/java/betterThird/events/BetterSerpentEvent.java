@@ -81,11 +81,11 @@ public class BetterSerpentEvent extends AbstractImageEvent {
                     this.imageEventText.removeDialogOption(1);
                     this.imageEventText.updateDialogOption(0, OPTIONS[4]);
                     this.screen = CUR_SCREEN.COMPLETE;
-                    logMetricIgnored(ID);
+                    logMetricTakeDamage(ID, "Ignored", this.goldCost);
                 }
                 break;
             case AGREE:
-                logMetricGainGoldAndCard(ID, "AGREE", this.curse, this.goldReward);
+                logMetricGainGoldAndDamage(ID, "AGREE", this.goldCost, this.goldReward); //current gold stored as damage
                 AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(this.curse, (float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F));
                 AbstractDungeon.effectList.add(new RainingGoldEffect(this.goldReward));
                 AbstractDungeon.player.gainGold(this.goldReward);
@@ -97,7 +97,7 @@ public class BetterSerpentEvent extends AbstractImageEvent {
                 List<String> tempList = new ArrayList<>();
                 tempList.add(this.card.cardID);
                 logMetric(ID, "RENOUNCE", tempList, null, null,
-                        null, null, null, null, 0,
+                        null, null, null, null, this.goldCost,
                         0, 0, 0, 0, this.goldCost);
                 AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(this.card, (float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F));
                 AbstractDungeon.player.loseGold(goldCost);
