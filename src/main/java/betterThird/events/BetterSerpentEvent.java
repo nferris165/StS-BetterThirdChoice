@@ -32,7 +32,7 @@ public class BetterSerpentEvent extends AbstractImageEvent {
     private CUR_SCREEN screen;
     private static final int GOLD_REWARD = 175;
     private static final int A_2_GOLD_REWARD = 150;
-    private int goldReward, goldCost;
+    private int goldReward, goldCost, maxHPGain;
     private AbstractCard curse, card;
 
     public BetterSerpentEvent() {
@@ -41,6 +41,7 @@ public class BetterSerpentEvent extends AbstractImageEvent {
         this.screen = CUR_SCREEN.INTRO;
         this.card = new Enlightenment();
         this.card.misc = 1;
+        this.maxHPGain = 6;
         this.goldCost = AbstractDungeon.player.gold;
         if (AbstractDungeon.ascensionLevel >= 15) {
             this.goldReward = A_2_GOLD_REWARD;
@@ -101,6 +102,7 @@ public class BetterSerpentEvent extends AbstractImageEvent {
                         0, 0, 0, 0, this.goldCost);
                 AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(this.card, (float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F));
                 AbstractDungeon.player.loseGold(goldCost);
+                AbstractDungeon.player.increaseMaxHp(maxHPGain, true);
                 this.imageEventText.updateBodyText(ENLIGHTEN_MSG);
                 this.imageEventText.updateDialogOption(0, OPTIONS[4]);
                 AbstractDungeon.shrineList.remove(GoldShrine.ID);
