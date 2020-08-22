@@ -7,11 +7,6 @@ import com.megacrit.cardcrawl.screens.DeathScreen;
 import com.megacrit.cardcrawl.screens.VictoryScreen;
 
 public class MetricsPatch {
-
-    private static void callMetrics(){
-
-    }
-
     @SpirePatch(
             clz = VictoryScreen.class,
             method = "submitVictoryMetrics"
