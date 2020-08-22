@@ -292,6 +292,10 @@ public class BetterScrapEvent extends AbstractImageEvent {
         }
         Collections.shuffle(cardPool, AbstractDungeon.miscRng.random);
         this.card = cardPool.get(0);
+        int upgrade = AbstractDungeon.miscRng.random(0, 99);
+        if(upgrade < 25){
+            this.card.upgrade();
+        }
         this.cardsOffered.add(this.card.cardID);
     }
 
