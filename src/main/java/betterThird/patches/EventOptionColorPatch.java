@@ -55,8 +55,8 @@ public class EventOptionColorPatch {
         )
 
         public static SpireReturn Insert(@ByRef String[] word){
-            if (word[0].length() > 0 && word[0].charAt(0) == '#' && word[0].charAt(1) == '#') {
-                String color = word[0].substring(1, 8);
+            if (word[0].length() > 0 && word[0].charAt(0) == '#' && word[0].charAt(1) == '|' && word[0].charAt(2) == '#') {
+                String color = word[0].substring(2, 9);
                 Color retVal = Color.valueOf(color);
                 return SpireReturn.Return(retVal);
             }
@@ -76,8 +76,8 @@ public class EventOptionColorPatch {
         )
 
         public static void Insert(SpriteBatch sb, BitmapFont font, String msg, float x, float y, float lineWidth, float lineSpacing, Color baseColor, @ByRef String[] ___word){
-            if (___word[0].length() > 0 && ___word[0].charAt(0) == '#' && ___word[0].charAt(1) == '#') {
-                ___word[0] = ___word[0].substring(6);
+            if (___word[0].length() > 0 && ___word[0].charAt(0) == '#' && ___word[0].charAt(1) == '|' && ___word[0].charAt(2) == '#') {
+                ___word[0] = ___word[0].substring(7);
             }
         }
     }

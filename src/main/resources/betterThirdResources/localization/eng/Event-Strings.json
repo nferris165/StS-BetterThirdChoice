@@ -37,7 +37,7 @@
       "[Leave]",
       "[Search Adventurers] #rLose #r",
       " #rLose #r",
-      " #rHP. #gObtain ##98FB98Slime ##98FB98Relic."
+      " #rHP. #gObtain #|#98FB98Slime #|#98FB98Relic."
     ]
   },
   "betterThird:BetterPortal": {
@@ -54,10 +54,10 @@
     ],
     "OPTIONS": [
       "[Enter the Portal] IMMEDIATELY travel to the boss.",
-      "[Swap the Crystal] ##FF0000Enter ##FF7F00a ##FFFF00different ##00FF00portal ##0000FFat ##8B00FFRandom!",
+      "[Swap the Crystal] #|#FF0000Enter #|#FF7F00a #|#FFFF00different #|#00FF00portal #|#0000FFat #|#8B00FFRandom!",
       "[Leave]",
       "[Continue]",
-      "[Use Relic] #rLose Prismatic Shard. ##FF0000Enter ##FF7F00a ##FFFF00portal ##00FF00of ##0000FFyour ##8B00FFChoosing!",
+      "[Use Relic] #rLose Prismatic Shard. #|#FF0000Enter #|#FF7F00a #|#FFFF00portal #|#00FF00of #|#0000FFyour #|#8B00FFChoosing!",
       "[Enter] ",
       "Select ",
       "portal."
@@ -123,10 +123,10 @@
       " #rHP.",
       "[Leave]",
       "[Locked] Requires: Upgradeable Cards",
-      "[Enter] #g25%: #gObtain ##D4AF37",
+      "[Enter] #g25%: #gObtain #|#D4AF37",
       ". #r",
       "%: #rReceive #rBurn.",
-      "[Protection] #gObtain ##D4AF37",
+      "[Protection] #gObtain #|#D4AF37",
       ". #rLose Dream Catcher."
     ]
   },
@@ -145,7 +145,7 @@
       "[Simplicity] #gUpgrade #gall #gStrikes #gand #gDefends.",
       "Select a Card to Remove.",
       "[Leave]",
-      "[Insight] #gObtain ##ee82ee",
+      "[Insight] #gObtain #|#ee82ee",
       "[Materialism] #gRemove #gall #gStrikes #gand #gDefends.",
       "[Adaptability] #gGain #g1 #gMax #gOrb #gslot."
     ]
