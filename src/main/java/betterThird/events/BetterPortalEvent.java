@@ -101,12 +101,12 @@ public class BetterPortalEvent extends AbstractImageEvent {
                             this.imageEventText.updateBodyText(DIALOG_CHOICE);
                             this.screen = CurScreen.CHOICE;
                             this.imageEventText.clearAllDialogs();
-                            this.imageEventText.setDialogOption(OPTIONS[5] + "##FF0000" + OPTIONS[6] + "##FF0000" + OPTIONS[7]);
-                            this.imageEventText.setDialogOption(OPTIONS[5] + "##FF7F00" + OPTIONS[6] + "##FF7F00" + OPTIONS[7]);
-                            this.imageEventText.setDialogOption(OPTIONS[5] + "##FFFF00" + OPTIONS[6] + "##FFFF00" + OPTIONS[7]);
-                            this.imageEventText.setDialogOption(OPTIONS[5] + "##00FF00" + OPTIONS[6] + "##00FF00" + OPTIONS[7]);
-                            this.imageEventText.setDialogOption(OPTIONS[5] + "##0000FF" + OPTIONS[6] + "##0000FF" + OPTIONS[7]);
-                            this.imageEventText.setDialogOption(OPTIONS[5] + "##8B00FF" + OPTIONS[6] + "##8B00FF" + OPTIONS[7]);
+                            this.imageEventText.setDialogOption(OPTIONS[5] + "#|#FF0000" + OPTIONS[6] + "#|#FF0000" + OPTIONS[7]);
+                            this.imageEventText.setDialogOption(OPTIONS[5] + "#|#FF7F00" + OPTIONS[6] + "#|#FF7F00" + OPTIONS[7]);
+                            this.imageEventText.setDialogOption(OPTIONS[5] + "#|#FFFF00" + OPTIONS[6] + "#|#FFFF00" + OPTIONS[7]);
+                            this.imageEventText.setDialogOption(OPTIONS[5] + "#|#00FF00" + OPTIONS[6] + "#|#00FF00" + OPTIONS[7]);
+                            this.imageEventText.setDialogOption(OPTIONS[5] + "#|#0000FF" + OPTIONS[6] + "#|#0000FF" + OPTIONS[7]);
+                            this.imageEventText.setDialogOption(OPTIONS[5] + "#|#8B00FF" + OPTIONS[6] + "#|#8B00FF" + OPTIONS[7]);
                         } else{
                             this.optionsChosen += "Random: ";
                             this.imageEventText.updateBodyText(DIALOG_4 + color + DIALOG_41 + color + DIALOG_42);
