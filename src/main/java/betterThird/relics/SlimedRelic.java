@@ -48,7 +48,7 @@ public class SlimedRelic extends CustomRelic implements OnLoseBlockRelic {
 
     @Override
     public int onAttacked(DamageInfo info, int damageAmount) {
-        if (info.owner != null && info.type != DamageInfo.DamageType.HP_LOSS && info.type != DamageInfo.DamageType.THORNS && damageAmount > 0) {
+        if (info.owner != null && info.owner != AbstractDungeon.player && info.type != DamageInfo.DamageType.HP_LOSS && info.type != DamageInfo.DamageType.THORNS && damageAmount > 0) {
             if(this.counter == COUNT){
                 this.stopPulse();
                 this.flash();
