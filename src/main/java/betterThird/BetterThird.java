@@ -171,30 +171,42 @@ public class BetterThird implements
         BaseMod.addRelic(new SlimedRelic(), RelicType.SHARED);
     }
 
+    private static String getLanguageString() {
+        switch (Settings.language) {
+//            case ZHS:
+//                return "zhs";
+            default:
+                return "eng";
+        }
+    }
+
     @Override
     public void receiveEditStrings() {
+        // Get Localization
+        String language = getLanguageString();
+
         BaseMod.loadCustomStringsFile(CardStrings.class,
-                modID + "Resources/localization/eng/Card-Strings.json");
+                modID + "Resources/localization/" + language + "/Card-Strings.json");
         BaseMod.loadCustomStringsFile(CharacterStrings.class,
-                modID + "Resources/localization/eng/Character-Strings.json");
+                modID + "Resources/localization/" + language + "/Character-Strings.json");
         BaseMod.loadCustomStringsFile(EventStrings.class,
-                modID + "Resources/localization/eng/Event-Strings.json");
+                modID + "Resources/localization/" + language + "/Event-Strings.json");
         BaseMod.loadCustomStringsFile(MonsterStrings.class,
-                modID + "Resources/localization/eng/Monster-Strings.json");
+                modID + "Resources/localization/" + language + "/Monster-Strings.json");
         BaseMod.loadCustomStringsFile(OrbStrings.class,
-                modID + "Resources/localization/eng/Orb-Strings.json");
+                modID + "Resources/localization/" + language + "/Orb-Strings.json");
         BaseMod.loadCustomStringsFile(PotionStrings.class,
-                modID + "Resources/localization/eng/Potion-Strings.json");
+                modID + "Resources/localization/" + language + "/Potion-Strings.json");
         BaseMod.loadCustomStringsFile(PowerStrings.class,
-                modID + "Resources/localization/eng/Power-Strings.json");
+                modID + "Resources/localization/" + language + "/Power-Strings.json");
         BaseMod.loadCustomStringsFile(RelicStrings.class,
-                modID + "Resources/localization/eng/Relic-Strings.json");
+                modID + "Resources/localization/" + language + "/Relic-Strings.json");
         BaseMod.loadCustomStringsFile(UIStrings.class,
-                modID + "Resources/localization/eng/UI-Strings.json");
+                modID + "Resources/localization/" + language + "/UI-Strings.json");
     }
 
     private void loadAudio() {
-        HashMap<String, Sfx> map = (HashMap<String, Sfx>) ReflectionHacks.getPrivate(CardCrawlGame.sound, SoundMaster.class, "map");
+        HashMap<String, Sfx> map = ReflectionHacks.getPrivate(CardCrawlGame.sound, SoundMaster.class, "map");
         //map.put("Pop", new Sfx(AUDIO_PATH + "pop.ogg", false));
     }
 
@@ -204,10 +216,11 @@ public class BetterThird implements
 
     @Override
     public void receivePostInitialize() {
+        UIStrings configStrings = CardCrawlGame.languagePack.getUIString(makeID("ConfigMenuText"));
         Texture badgeTexture = TextureLoader.getTexture(BADGE_IMAGE);
         ModPanel settingsPanel = new ModPanel();
 
-        ModLabeledToggleButton goopButton = new ModLabeledToggleButton("Enables Better World of Goop.",
+        ModLabeledToggleButton goopButton = new ModLabeledToggleButton(configStrings.TEXT[0],
                 350.0f, 750.0f, Settings.CREAM_COLOR, FontHelper.charDescFont,
                 goop,
                 settingsPanel,
@@ -224,7 +237,7 @@ public class BetterThird implements
                     }
                 });
 
-        ModLabeledToggleButton nestButton = new ModLabeledToggleButton("Enables Better Nest.",
+        ModLabeledToggleButton nestButton = new ModLabeledToggleButton(configStrings.TEXT[1],
                 350.0f, 700.0f, Settings.CREAM_COLOR, FontHelper.charDescFont,
                 nest,
                 settingsPanel,
@@ -241,7 +254,7 @@ public class BetterThird implements
                     }
                 });
 
-        ModLabeledToggleButton portalButton = new ModLabeledToggleButton("Enables Better Secret Portal.",
+        ModLabeledToggleButton portalButton = new ModLabeledToggleButton(configStrings.TEXT[2],
                 350.0f, 650.0f, Settings.CREAM_COLOR, FontHelper.charDescFont,
                 portal,
                 settingsPanel,
@@ -258,7 +271,7 @@ public class BetterThird implements
                     }
                 });
 
-        ModLabeledToggleButton scrapButton = new ModLabeledToggleButton("Enables Better Scrap Ooze.",
+        ModLabeledToggleButton scrapButton = new ModLabeledToggleButton(configStrings.TEXT[3],
                 350.0f, 600.0f, Settings.CREAM_COLOR, FontHelper.charDescFont,
                 scrap,
                 settingsPanel,
@@ -275,7 +288,7 @@ public class BetterThird implements
                     }
                 });
 
-        ModLabeledToggleButton serpentButton = new ModLabeledToggleButton("Enables Better Ssssserpent.",
+        ModLabeledToggleButton serpentButton = new ModLabeledToggleButton(configStrings.TEXT[4],
                 350.0f, 550.0f, Settings.CREAM_COLOR, FontHelper.charDescFont,
                 serpent,
                 settingsPanel,
@@ -292,7 +305,7 @@ public class BetterThird implements
                     }
                 });
 
-        ModLabeledToggleButton shiningButton = new ModLabeledToggleButton("Enables Better Shining Light.",
+        ModLabeledToggleButton shiningButton = new ModLabeledToggleButton(configStrings.TEXT[5],
                 350.0f, 500.0f, Settings.CREAM_COLOR, FontHelper.charDescFont,
                 shining,
                 settingsPanel,
@@ -309,7 +322,7 @@ public class BetterThird implements
                     }
                 });
 
-        ModLabeledToggleButton writingButton = new ModLabeledToggleButton("Enables Better Ancient Writing.",
+        ModLabeledToggleButton writingButton = new ModLabeledToggleButton(configStrings.TEXT[6],
                 350.0f, 450.0f, Settings.CREAM_COLOR, FontHelper.charDescFont,
                 writing,
                 settingsPanel,
@@ -334,9 +347,7 @@ public class BetterThird implements
         settingsPanel.addUIElement(shiningButton);
         settingsPanel.addUIElement(writingButton);
         BaseMod.registerModBadge(badgeTexture, MODNAME, AUTHOR, DESCRIPTION, settingsPanel);
-
-        //events
-
+        
         //audio
         loadAudio();
     }

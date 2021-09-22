@@ -1,3 +1,13 @@
 {
-
+  "betterThird:ConfigMenuText": {
+    "TEXT": [
+      "Enables Better World of Goop.",
+      "Enables Better Nest.",
+      "Enables Better Secret Portal.",
+      "Enables Better Scrap Ooze.",
+      "Enables Better Ssssserpent.",
+      "Enables Better Shining Light.",
+      "Enables Better Ancient Writing."
+    ]
+  }
 }
