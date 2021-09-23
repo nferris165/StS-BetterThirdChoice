@@ -347,7 +347,7 @@ public class BetterThird implements
         settingsPanel.addUIElement(shiningButton);
         settingsPanel.addUIElement(writingButton);
         BaseMod.registerModBadge(badgeTexture, MODNAME, AUTHOR, DESCRIPTION, settingsPanel);
-        
+
         //audio
         loadAudio();
     }
