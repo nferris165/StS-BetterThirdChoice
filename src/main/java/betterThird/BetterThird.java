@@ -155,7 +155,9 @@ public class BetterThird implements
     @Override
     public void receiveEditKeywords() {
         Gson gson = new Gson();
-        String json = Gdx.files.internal(modID + "Resources/localization/eng/Keyword-Strings.json").readString(String.valueOf(StandardCharsets.UTF_8));
+        String language = getLanguageString();
+
+        String json = Gdx.files.internal(modID + "Resources/localization/" + language + "/Keyword-Strings.json").readString(String.valueOf(StandardCharsets.UTF_8));
         com.evacipated.cardcrawl.mod.stslib.Keyword[] keywords = gson.fromJson(json, com.evacipated.cardcrawl.mod.stslib.Keyword[].class);
 
         if (keywords != null) {
